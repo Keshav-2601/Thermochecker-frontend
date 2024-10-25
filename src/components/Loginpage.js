@@ -1,7 +1,11 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { Link } from "react-router-dom";
+import './Createlogin.js'
+
 function Login() {
+    
     return (
         <>
             <figure class="text-center">
@@ -23,6 +27,12 @@ function Login() {
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
+                 <Link to="/createLogin">
+                 <p>
+                    Don't have account?
+                 </p>
+               </Link>
+                
             </Form>
 
         </>

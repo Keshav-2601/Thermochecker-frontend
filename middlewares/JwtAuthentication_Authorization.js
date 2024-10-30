@@ -1,4 +1,4 @@
-import dotenv from 'env';
+import dotenv from 'dotenv';
 export async function jsonAuthentication_Authorization(req, res, next) {
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) {

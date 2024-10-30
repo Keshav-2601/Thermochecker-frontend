@@ -1,18 +1,18 @@
 import expres from 'express';
 import UserRepository from '../Repository/UserRepository.js';
-import dotenv from 'env';
+import dotenv from 'dotenv';
 dotenv.config();
  export default  class Usercontroller{
-    async get(res,req){
+    async get(req,res){
         try {
             var data={
-                firstname:req.body,firstname,
+                firstname:req.body.firstname,
                 password:req.body.password,
                 email:req.body.name,
                 address:req.body.address
             }
             const sendata=await UserRepository.storedata(data);
-            if(!sendata.isEmpty()){
+            if(sendata){
                 return res.status(200).sendata("Login is created succesfully");
             }
             else{
@@ -29,7 +29,7 @@ dotenv.config();
                 password:req.body.password
             }
             const Logininfo=await UserRepository.logindata(data)
-            if(!Logininfo.isEmpty()){
+            if(Logininfo){
                 const jwtkey=process.env.JWT_KEY;
                 const token=jwt.sign({
                     userID:Logininfo._id,email:data.email

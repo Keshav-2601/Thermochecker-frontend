@@ -6,7 +6,7 @@ export default class UserRepository{
         try {
             const db=getdb();
             const collection=db.collection("User_Details");
-            const Data=await collection.InsertOne(data)
+            const Data=await collection.insertOne(data)
             var string="data is added succesfully";
             return string;
         } catch (error) {
@@ -25,7 +25,6 @@ export default class UserRepository{
             }
             if(user){
                 const haspassword=await bcrypt.compare(data.password,user.password)//here to check the user.password and Data password we enter are same or not ?
-
                 if(haspassword){
                     return string;
                 }

@@ -1,6 +1,7 @@
 export default async function checkemail(req, res, next) {
     try {
         const email = req.body.email;
+        console.log("Email in checkemail middleware:", email);
         if (!email) {
             return res.status(400).send('Email is required');
         }

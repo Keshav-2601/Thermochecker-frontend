@@ -1,22 +1,25 @@
 import expres from 'express';
 import UserRepository from '../Repository/UserRepository.js';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 dotenv.config();
  export default  class Usercontroller{
-    async get(req,res){
+    async getdata(req,res){
+        console.log("Reached to controller get function")
+        console.log("Request body in getdata:", req.body);  
         try {
             var data={
                 firstname:req.body.firstname,
                 password:req.body.password,
-                email:req.body.name,
+                email:req.body.email,
                 address:req.body.address
             }
             const sendata=await UserRepository.storedata(data);
             if(sendata){
-                return res.status(200).sendata("Login is created succesfully");
+                return res.status(200).send("Login is created succesfully");
             }
             else{
-                return res.status(404).sendata("Unsuccessful in creating the Login");
+                return res.status(404).send("Unsuccessful in creating the Login");
             }
         } catch (error) {
             console.log('Problem in creating Login',error);

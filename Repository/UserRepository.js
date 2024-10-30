@@ -7,6 +7,8 @@ export default class UserRepository{
             const db=getdb();
             const collection=db.collection("User_Details");
             const Data=await collection.insertOne(data)
+            console.log("Data inserted into DB:", Data.insertedID);
+            console.log("Data inserted into DB:", Data);
             var string="data is added succesfully";
             return string;
         } catch (error) {

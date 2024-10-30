@@ -8,11 +8,17 @@ const UserRouter=express.Router();
 const Usercontrol=new Usercontroller();
 UserRouter.post('/create',checkemail,hashPassword,(req,res)=>{
     //will check the email as well before going to database..
-    Usercontrol.get(req,res)//since this is reaching the hashpassword earlier therefore contoller will get the hashpassword.
+    console.log("POST request received at /user/create");
+    Usercontrol.getdata(req,res)//since this is reaching the hashpassword earlier therefore contoller will get the hashpassword.
 })
 
 UserRouter.post('/login',(req,res)=>{
     Usercontrol.login(req,res);
 })
+UserRouter.get('/test', (req, res) => {
+    console.log("GET request received at /user/test");
+    return res.send("Test route is working");
+});
+
 
 export default UserRouter

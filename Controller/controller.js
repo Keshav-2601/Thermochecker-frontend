@@ -2,9 +2,6 @@ import expres from 'express';
 import UserRepository from '../Repository/UserRepository.js';
 import dotenv from 'env';
 dotenv.config();
-
-import send from 'send';
-import { userInfo } from 'os';
  export default  class Usercontroller{
     async get(res,req){
         try {
@@ -37,7 +34,7 @@ import { userInfo } from 'os';
                 const token=jwt.sign({
                     userID:Logininfo._id,email:data.email
                 },jwtkey,{expiresIn:'7d'})
-                return res.status(200).send('login successfully');
+                return res.status(200).send('login successfully',token);
             }
             else{
                 return res.status(404).send('not an authentic user');

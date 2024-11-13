@@ -79,16 +79,7 @@ export default function LoginPage() {
           required
         />
       </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={credentials.password}
-          onChange={handleChange}
-          required
-        />
-      </label>
+
       <button type="submit">Login</button>
     </form>
   );

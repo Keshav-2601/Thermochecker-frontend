@@ -27,6 +27,9 @@ function Login() {
         <Link to="/createLogin">
           <p>Don't have account?</p>
         </Link>
+        <Link to="/adminlogin">
+          <p>Admin Login</p>
+        </Link>
       </Form>
     </>
   );

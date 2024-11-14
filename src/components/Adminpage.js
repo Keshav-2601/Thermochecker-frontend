@@ -1,7 +1,26 @@
 import react from 'react';
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
-
+import React, { useState, useEffect } from 'react';
  export default function Adminpage() {
+    const[inputfirstname,setfirstname]=useState('');
+    const[inputage,setage]=useState('');
+    const[input_tempearture,set_temperature]=useState('');
+
+    const handelInputname=(event)=>{
+        console.log("name is:",event.target.value);
+        setfirstname(event.target.value);//this is the function so will take () even.target.value in parenthesis.
+    }
+    const SubmitInfo=()=>{
+        //here axios code.
+    }
+    const handelage=(a)=>{
+        console.log("age is",a.target.value)
+        setage(a.target.vale);
+    }
+    const handel_temp=(tem)=>{
+        console.log("temp is",tem.target.value);
+        set_temperature(tem.target.value);
+    }
     return (
         <>
             <Form noValidate >
@@ -12,7 +31,8 @@ import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
                             required
                             type="text"
                             placeholder="First name"
-                            defaultValue="Mark"
+                            defaultValue={inputfirstname}
+                             onChange={handelInputname}//no need to explicitiy give para as react would automatically give para to to handelInputName.Self learning
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
@@ -20,8 +40,10 @@ import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
                         <Form.Label>Age</Form.Label>
                         <Form.Control
                             required
-                            type="number"
+                            type="text"
+                            defaultValue={inputage}
                             placeholder="age"
+                            onChange={handelage}
                         />
 
                     </Form.Group>
@@ -44,10 +66,13 @@ import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
                 <Row className="mb-3">
                     <Form.Group as={Col} md="6" controlId="validationCustom03">
                         <Form.Label>Temperature</Form.Label>
-                        <Form.Control type="text" placeholder="temp..." required />
+                        <Form.Control type="text" placeholder="temp..." required
+                        defaultValue={input_tempearture}
+                        onChange={handel_temp}
+                        />
                     </Form.Group>
                 </Row>
-                <Button type="submit">Submit form</Button>
+                <Button type="submit" onClick={SubmitInfo()}>Submit form</Button>
             </Form>
         </>
     )

@@ -1,17 +1,13 @@
 import React from "react";
-import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap"; // Removed unused imports
 import { Link } from "react-router-dom";
-import "./Createlogin.js";
+import "../styling/Loginpage.css";
 
 function Login() {
   return (
-    <>
-      <figure class="text-center">
-        <blockquote class="blockquote">
-          <p>ThermoChecker</p>
-        </blockquote>
-      </figure>
-      <Form>
+    <div className="login-page-container">
+      <div className="header-bar">Home Temperature Monitor</div>
+      <Form className="login-form">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
@@ -21,17 +17,20 @@ function Login() {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button className="login-submit-button" type="submit">
           Submit
         </Button>
-        <Link to="/createLogin">
-          <p>Don't have account?</p>
-        </Link>
-        <Link to="/adminlogin">
-          <p>Admin Login</p>
-        </Link>
+        <div className="login-links">
+          <Link to="/createLogin" className="login-link">
+            Don't have an account?
+          </Link>
+          <Link to="/adminlogin" className="login-link">
+            Admin Login
+          </Link>
+        </div>
       </Form>
-    </>
+    </div>
   );
 }
+
 export default Login;

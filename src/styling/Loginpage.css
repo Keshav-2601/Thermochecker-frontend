@@ -1,23 +1,77 @@
-/* .body{
-    width: 100vh;
-    height: 100vh;
+/* Login Page Container */
+.login-page-container {
+  background-color: #f9f9f9;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.Loginform{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    top:200px;
-    left:450px;
-    align-content: space-between;
+
+/* Header Bar */
+.header-bar {
+  width: 400px;
+  height: 50px;
+  background-color: #854cff;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 20px;
 }
-.LoginInputform{
-    border-radius: 10px;
-    width: 300px;
-    height: 30px;
+
+/* Login Form */
+.login-form {
+  width: 400px;
+  background: white;
+  padding: 25px 30px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.LoginButtonform{
-    border-radius: 3px;
-    background-color: rgba(37, 62, 255, 0.993);
-    width: 300px;
-    height: 30px;
-} */
+
+/* Input Fields */
+.login-form .form-control {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.login-form .form-control:focus {
+  border-color: #854cff;
+  box-shadow: 0 0 5px rgba(133, 76, 255, 0.5);
+}
+
+/* Submit Button */
+.login-submit-button {
+  width: 100%;
+  background-color: #854cff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.login-submit-button:hover {
+  background-color: #6b3cc1;
+  cursor: pointer;
+}
+
+/* Login Links */
+.login-links {
+  margin-top: 15px;
+}
+
+.login-link {
+  color: #854cff;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}

@@ -1,9 +1,11 @@
 import React from "react";
+
 import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import './Createlogin.js'
 
-function Login() {
+import Adminpage from "./Adminpage.js";
+import Login from "./Loginpage.js";
+function AdminloginPage() {
     return (
         <>
             <figure class="text-center">
@@ -25,19 +27,16 @@ function Login() {
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
-                 <Link to="/createLogin">
-                 <p>
-                    Don't have account?
-                 </p>
-               </Link>
-                <Link to='/adminlogin'>
+                <Link to="/" >
                 <p>
-                    Admin Login
+                    back to User login page
+                  
                 </p>
                 </Link>
+                 
             </Form>
 
         </>
     )
 }
-export default Login;
+export default AdminloginPage;

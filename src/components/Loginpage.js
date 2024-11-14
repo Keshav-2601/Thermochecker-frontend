@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import './Createlogin.js'
 
 function Login() {
-    
     return (
         <>
             <figure class="text-center">

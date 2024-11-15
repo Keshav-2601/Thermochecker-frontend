@@ -1,0 +1,78 @@
+/* Admin Login Container */
+.admin-login-container {
+  background-color: #f9f9f9; /* Light background */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Purple Header Bar */
+.admin-header-bar {
+  width: 400px; /* Matches the form width */
+  height: 50px;
+  background-color: #854cff; /* Purple brand color */
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 50px; /* Vertically center the text */
+  margin-bottom: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Form Styles */
+.admin-login-form {
+  width: 400px;
+  background: white;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Input Fields */
+.admin-login-form .form-control {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.admin-login-form .form-control:focus {
+  border-color: #854cff; /* Purple focus */
+  box-shadow: 0 0 5px rgba(133, 76, 255, 0.5);
+}
+
+/* Submit Button */
+.admin-submit-button {
+  width: 100%;
+  background-color: #854cff; /* Purple button */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.admin-submit-button:hover {
+  background-color: #6b3cc1; /* Darker shade on hover */
+  cursor: pointer;
+}
+
+/* Back to User Login Link */
+.admin-back-link {
+  margin-top: 15px;
+  text-align: center; /* Center-aligns the text */
+}
+
+.back-to-user-login {
+  color: #854cff; /* Purple link */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.back-to-user-login:hover {
+  text-decoration: underline;
+}

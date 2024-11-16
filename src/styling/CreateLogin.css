@@ -1,5 +1,5 @@
-/* Login Page Container */
-.login-page-container {
+/* Create Login Page Container */
+.create-login-page-container {
   background-color: #f9f9f9;
   height: 100vh;
   display: flex;
@@ -19,11 +19,11 @@
   text-align: center;
   line-height: 50px;
   border-radius: 10px 10px 0 0;
-  margin-bottom: 20px;
+  margin-bottom: 0; /* Ensures it's snug against the form */
 }
 
-/* Login Form */
-.login-form {
+/* Form Container */
+.create-login-form {
   width: 400px;
   background: white;
   padding: 25px 30px;
@@ -31,20 +31,26 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Form Labels */
+.create-login-form .form-label {
+  font-weight: bold;
+  color: #333;
+}
+
 /* Input Fields */
-.login-form .form-control {
+.create-login-form .form-control {
   border-radius: 5px;
   padding: 10px;
   border: 1px solid #ccc;
 }
 
-.login-form .form-control:focus {
+.create-login-form .form-control:focus {
   border-color: #854cff;
   box-shadow: 0 0 5px rgba(133, 76, 255, 0.5);
 }
 
 /* Submit Button */
-.login-submit-button {
+.create-login-form button[type="submit"] {
   width: 100%;
   background-color: #854cff;
   color: white;
@@ -52,26 +58,24 @@
   border: none;
   border-radius: 5px;
   font-size: 16px;
+  margin-top: 20px;
 }
 
-.login-submit-button:hover {
+.create-login-form button[type="submit"]:hover {
   background-color: #6b3cc1;
   cursor: pointer;
 }
 
-/* Login Links */
-.login-links {
-  margin-top: 15px;
-}
-
-.login-link {
-  color: #854cff;
+/* Link Styling */
+.create-login-page-container a {
   text-decoration: none;
+  color: #854cff;
   font-weight: bold;
   display: block;
   text-align: center;
+  margin-top: 15px;
 }
 
-.login-link:hover {
+.create-login-page-container a:hover {
   text-decoration: underline;
 }

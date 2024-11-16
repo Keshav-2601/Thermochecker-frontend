@@ -3,7 +3,7 @@
 import Login from './components/Loginpage.js';
 import CreateLogin from './components/Createlogin.js';
 import Homepage from './components/Homepage.js';
-import Adminpage from './components/Adminpage.js';
+import Adminpage from './components/Patientspage.js';
 import AdminloginPage from './components/AdminLoginPage.js';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 function App() {

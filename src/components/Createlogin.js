@@ -1,9 +1,48 @@
-import React from "react";
+import React, { useState ,useEffect} from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../styling/CreateLogin.css";
+import axios from 'axios';
 
 function CreateLogin() {
+  let[inputFirstname,setFirstname]=useState("");
+  let[inputPassword,setPassword]=useState("");
+  let[inputEmail,setEmail]=useState("");
+  let[inputAddress,setAddress]=useState("");
+
+  const handelname=(event)=>{
+    console.log(event.target.value);
+    setFirstname(event.target.value);
+  }
+  const handelEmail=(event)=>{
+    console.log(event.target.value);
+    setEmail(event.target.value);
+  }
+  const handelPassword=(event)=>{
+    console.log(event.target.value);
+    setPassword(event.target.value);
+  }
+  const handelAddress=(event)=>{
+    console.log(event.target.value);
+    setAddress(event.target.value);
+  }
+  async function handelSubmit(){
+    try {
+      const data = await axios.post('localhost3200/createLogin', {
+        firstname:inputFirstname,
+        password:inputPassword,
+        email:inputEmail,
+        address:inputAddress
+        
+      })
+      console.log("Data submited");
+    } catch (error) {
+      console.log("cannot send the data!!",error);
+    }
+    
+    
+
+  }
   return (
     <div className="create-login-page-container">
       <div className="header-bar">Create Your Account</div>
@@ -15,8 +54,9 @@ function CreateLogin() {
               required
               type="text"
               placeholder="First name"
-              defaultValue="Mark"
+              defaultValue={inputFirstname}
               className="create-login-input"
+              onChange={handelname}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
@@ -27,6 +67,8 @@ function CreateLogin() {
               type="password"
               placeholder="Password"
               className="create-login-input"
+              onChange={handelPassword}
+              value={inputPassword}
             />
           </Form.Group>
           <Form.Group as={Col} md="12" controlId="validationCustom03">
@@ -39,6 +81,8 @@ function CreateLogin() {
                 aria-describedby="inputGroupPrepend"
                 required
                 className="create-login-input"
+                onChange={handelEmail}
+                value={inputEmail}
               />
               <Form.Control.Feedback type="invalid">
                 Please provide a valid email.
@@ -54,13 +98,15 @@ function CreateLogin() {
               placeholder="Address"
               required
               className="create-login-input"
+              onChange={handelAddress}
+              value={inputAddress}
             />
             <Form.Control.Feedback type="invalid">
               Please provide a valid address.
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
-        <Button type="submit" className="create-login-button">
+        <Button type="submit" className="create-login-button" onClick={handelSubmit}>
           Submit Form
         </Button>
         <Link to="/" className="create-login-link">

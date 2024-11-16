@@ -2,6 +2,9 @@ import react from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import "../styling/Adminpage.css";
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
+
 export default function Adminpage() {
   const [inputfirstname, setfirstname] = useState("");
   const [inputage, setage] = useState("");
@@ -11,12 +14,21 @@ export default function Adminpage() {
     console.log("name is:", event.target.value);
     setfirstname(event.target.value); //this is the function so will take () even.target.value in parenthesis.
   };
-  const SubmitInfo = () => {
-    //here axios code.
+ async function SubmitInfo() {
+    try {
+      const result=await axios.post('http://localhost:3200',{
+        firstname:inputfirstname,
+        age:inputage,
+        temperature:input_tempearture
+      })
+      console.log("Patient's added successfully");
+    } catch (error) {
+      console.log("Error in getting patient's data check request",error);
+    }
   };
   const handelage = (a) => {
     console.log("age is", a.target.value);
-    setage(a.target.vale);
+    setage(a.target.value);
   };
   const handel_temp = (tem) => {
     console.log("temp is", tem.target.value);
@@ -76,7 +88,7 @@ export default function Adminpage() {
             />
           </Form.Group>
         </Row>
-        <Button type="submit" onClick={SubmitInfo()}>
+        <Button type="submit" onClick={SubmitInfo}>
           Submit form
         </Button>
       </Form>

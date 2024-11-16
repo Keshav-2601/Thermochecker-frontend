@@ -1,7 +1,7 @@
 import React from "react";
 import PubNub from 'pubnub';
 import { Link } from "react-router-dom";
-import Adminpage from "./Adminpage.js";
+import Adminpage from "./Patientspage.js";
 
 const pubnub = new PubNub({
     publishKey: 'pub-c-006ed63e-75db-496c-84cb-3730599207ad',

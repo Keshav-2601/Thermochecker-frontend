@@ -26,7 +26,7 @@ function AdminloginPage() {
             if (Result.status === 200) {
               console.log("Admin Login successful");
               //alert("Admin Logged in");
-              Navigate('/Homepage');
+              Navigate('/AdminHomepage');
           }
         } catch (error) {
             console.log("pls check the request inputs ",error);

@@ -17,7 +17,7 @@ export default function Patientpage() {
   };
  async function SubmitInfo() {
     try {
-      const result=await axios.post('http://localhost:3200',{
+      const result=await axios.post('http://localhost:3200/admin/patient',{
         firstname:inputfirstname,
         age:inputage,
         temperature:input_tempearture

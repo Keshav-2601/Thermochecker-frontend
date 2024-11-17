@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap"; // Removed unused imports
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import "../styling/Loginpage.css";
 import axios from 'axios';
 function Login() {
   const[inputEmail,setEmail]=useState("");
   const[inputPassword,setPassword]=useState("");
-  
+  const navigate = useNavigate();
   const handelEmail=(event)=>{
     console.log(event.target.value);
     setEmail(event.target.value);
@@ -16,13 +16,15 @@ function Login() {
     setPassword(event.target.value);
   }
 
-  async function handelSubmit(){
+  async function handelSubmit(event){
+    event.preventDefault();
     try {
-      const result= await axios.post('localhost:3000',{
+      const result= await axios.post('http://localhost:3000/user/login',{
         email:inputEmail,
         password:inputPassword
       })
       console.log('Login successfully');
+       navigate('/Homepage')
     } catch (error) {
       console.log("data not got properly check frontend request",error);
     }
@@ -40,11 +42,11 @@ function Login() {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" value={inputPassword} onChange={handelPassword} />
         </Form.Group>
-        <Button className="login-submit-button" type="submit">
+        <Button className="login-submit-button" type="submit" onClick={handelSubmit}>
           Submit
         </Button>
         <div className="login-links">
-          <Link to="/createLogin" className="login-link">
+          <Link to="/create" className="login-link">
             Don't have an account?
           </Link>
           <Link to="/adminlogin" className="login-link">

@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from "react";
 import { Button, Form } from "react-bootstrap"; // Removed unused imports
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styling/Adminpage.css";
 import axios from 'axios';
 function AdminloginPage() {
     const[inputEmail,setEmail]=useState("");
     const[inputPassword,setPassword]=useState("");
+    const Navigate=useNavigate();
     const handelEmail=(event)=>{
         console.log(event.target.value);
         setEmail(event.target.value);
@@ -14,14 +15,19 @@ function AdminloginPage() {
         console.log(event.target.value);
         setPassword(event.target.value);
     }
-   async function handelsubmit(){
+   async function handelsubmit(event){
+        event.preventDefault();
         try {
-            const Result=await axios.post('loalhost:3200/AdminLoginPage',{
+            const Result=await axios.post('http://localhost:3000/admin/adminlogin',{
                 email:inputEmail,
                 password:inputPassword
             })
-            console.log("Admin Login successfully");
-            
+            console.log("Status is: ",Result.status);
+            if (Result.status === 200) {
+              console.log("Admin Login successful");
+              //alert("Admin Logged in");
+              Navigate('/Homepage');
+          }
         } catch (error) {
             console.log("pls check the request inputs ",error);
         }
@@ -51,10 +57,9 @@ function AdminloginPage() {
           <Form.Control type="password" placeholder="Password" value={inputPassword} onChange={handelPassword} />
         </Form.Group>
 
-        <Button onSubmit={handelsubmit()} className="admin-submit-button" variant="primary" type="submit">
+        <Button onClick={handelsubmit} className="admin-submit-button" variant="primary" type="submit">
           Submit
         </Button>
-
         {/* Link to User Login */}
         <div className="admin-back-link">
           <Link to="/" className="back-to-user-login">

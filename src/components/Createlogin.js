@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import "../styling/CreateLogin.css";
 import axios from 'axios';
 
@@ -9,7 +9,7 @@ function CreateLogin() {
   let[inputPassword,setPassword]=useState("");
   let[inputEmail,setEmail]=useState("");
   let[inputAddress,setAddress]=useState("");
-
+  const navigate=useNavigate();
   const handelname=(event)=>{
     console.log(event.target.value);
     setFirstname(event.target.value);
@@ -26,9 +26,10 @@ function CreateLogin() {
     console.log(event.target.value);
     setAddress(event.target.value);
   }
-  async function handelSubmit(){
+  async function handelSubmit(event){
+    event.preventDefault();
     try {
-      const data = await axios.post('localhost3200/createLogin', {
+      const data = await axios.post('http://localhost:3000/user/create', {
         firstname:inputFirstname,
         password:inputPassword,
         email:inputEmail,
@@ -36,6 +37,7 @@ function CreateLogin() {
         
       })
       console.log("Data submited");
+      navigate('/');
     } catch (error) {
       console.log("cannot send the data!!",error);
     }

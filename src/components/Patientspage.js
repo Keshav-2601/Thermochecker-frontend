@@ -5,10 +5,11 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 
-export default function Adminpage() {
+export default function Patientpage() {
   const [inputfirstname, setfirstname] = useState("");
   const [inputage, setage] = useState("");
   const [input_tempearture, set_temperature] = useState("");
+  const[inputpriority,set_Priority]=useState("Normal");
 
   const handelInputname = (event) => {
     console.log("name is:", event.target.value);
@@ -26,6 +27,10 @@ export default function Adminpage() {
       console.log("Error in getting patient's data check request",error);
     }
   };
+  const handelpriority=(event)=>{
+    console.log(event.taget.value);
+    set_Priority(event.target.value);
+  }
   const handelage = (a) => {
     console.log("age is", a.target.value);
     setage(a.target.value);
@@ -60,21 +65,6 @@ export default function Adminpage() {
               onChange={handelage}
             />
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-            <Form.Label>Email</Form.Label>
-            <InputGroup hasValidation>
-              <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-              <Form.Control
-                type="text"
-                placeholder="Email"
-                aria-describedby="inputGroupPrepend"
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                Please choose a username.
-              </Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} md="6" controlId="validationCustom03">
@@ -85,6 +75,18 @@ export default function Adminpage() {
               required
               defaultValue={input_tempearture}
               onChange={handel_temp}
+            />
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
+            <Form.Label>Priority</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="give priority"
+              required
+              defaultValue={inputpriority}
+              onChange={handelpriority}
             />
           </Form.Group>
         </Row>

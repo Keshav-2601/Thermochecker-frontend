@@ -10,7 +10,7 @@ try:
     humidity = dht_device.humidity
 
     if temperature is not None and humidity is not None:
-        # Store the values in variables
+   
         temperature_value = temperature
         humidity_value = humidity
         print(f"Temperature: {temperature_value:.1f}°C")

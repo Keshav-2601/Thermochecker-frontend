@@ -21,66 +21,86 @@ async function sendmessage() {
 
 function Homepage() {
   const [PatientData, setPatientData] = useState([]);
-  const [expandedId, setExpandedId] = useState(null); // New state to track the expanded card
 
   useEffect(() => {
+    // Original API call (commented out)
+    /*
+    async function fetchData() {
+      try {
+        const result = await axios.get("http://localhost:3000/Homepage/");
+        setPatientData(result.data.data);
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    }
+    fetchData();
+    */
+
     // Mock data for testing purposes
     const mockData = [
       {
         _id: "1",
         firstname: "Steaven",
+        lastname: "Smith",
         age: 72,
         temperature: 22.3,
-        priority: "High",
+        roomHumidity: 58, // Room Humidity
         preferredTemperature: 23,
+        preferredHumidity: 60,
       },
       {
         _id: "2",
         firstname: "Maria",
+        lastname: "Johnson",
         age: 68,
         temperature: 20.1,
-        priority: "Medium",
+        roomHumidity: 55, // Room Humidity
         preferredTemperature: 22,
+        preferredHumidity: 55,
       },
       {
         _id: "3",
         firstname: "Robert",
+        lastname: "Brown",
         age: 75,
         temperature: 23.0,
-        priority: "Low",
+        roomHumidity: 65, // Room Humidity
         preferredTemperature: 23,
+        preferredHumidity: 65,
       },
       {
         _id: "4",
         firstname: "John",
+        lastname: "Doe",
         age: 79,
         temperature: 19.5,
-        priority: "High",
+        roomHumidity: 52, // Room Humidity
         preferredTemperature: 21,
+        preferredHumidity: 50,
       },
       {
         _id: "5",
         firstname: "Elizabeth",
+        lastname: "Taylor",
         age: 70,
         temperature: 21.1,
-        priority: "Medium",
+        roomHumidity: 54, // Room Humidity
         preferredTemperature: 22,
+        preferredHumidity: 55,
       },
       {
         _id: "6",
         firstname: "Lily",
+        lastname: "Evans",
         age: 76,
         temperature: 19.7,
-        priority: "Low",
+        roomHumidity: 50, // Room Humidity
         preferredTemperature: 21,
+        preferredHumidity: 50,
       },
     ];
     setPatientData(mockData);
   }, []);
-
-  const toggleDetails = (id) => {
-    setExpandedId(expandedId === id ? null : id); // Toggle expansion for the clicked card
-  };
 
   return (
     <div className="homepage-container">
@@ -97,50 +117,35 @@ function Homepage() {
 
       {/* Room Cards */}
       <div className="rooms-grid">
-        {PatientData.length > 0 ? (
-          PatientData.map((patient) => (
-            <div key={patient._id} className="room-card">
-              {/* Room Header */}
-              <div className="room-header">
-                <div className="room-name">
-                  <span
-                    className={`status-indicator ${
-                      patient.temperature > 23 ? "red" : "green"
-                    }`}
-                  ></span>
-                  {patient.firstname}'s Bedroom
-                  <span
-                    className="dropdown-toggle"
-                    onClick={() => toggleDetails(patient._id)}
-                  >
-                    ▼
-                  </span>
-                </div>
-              </div>
-
-              {/* Room Temperature */}
-              <div className="room-temperature">{patient.temperature}°C</div>
-
-              {/* Expanded Details */}
-              {expandedId === patient._id && (
-                <div className="room-expanded-details">
-                  <p>Resident Age: {patient.age}</p>
-                  <p>Priority: {patient.priority}</p>
-                  <p>Preferred Temp: {patient.preferredTemperature}°C</p>
-                </div>
-              )}
-
-              <div
-                className="details-toggle"
-                onClick={() => toggleDetails(patient._id)}
-              >
-                Details ▼
+        {PatientData.map((patient) => (
+          <div key={patient._id} className="room-card">
+            <div className="room-header">
+              <div className="room-name">
+                <span
+                  className={`status-indicator ${
+                    patient.temperature > 23 ? "red" : "green"
+                  }`}
+                ></span>
+                {patient.firstname}'s Bedroom
+                <span className="dropdown-toggle">▼</span>
               </div>
             </div>
-          ))
-        ) : (
-          <p className="no-data-message">No patient data available.</p>
-        )}
+            {/* Temperature and Room Humidity on the Same Line */}
+            <div className="room-stats">
+              <span className="room-temperature">{patient.temperature}°C</span>
+              <span className="room-humidity">{patient.roomHumidity}%</span>
+            </div>
+            <div className="room-details">
+              <p>
+                Resident Name: {patient.firstname} {patient.lastname}
+              </p>
+              <p>Resident Age: {patient.age}</p>
+              <p>Preferred Temp: {patient.preferredTemperature}°C</p>
+              <p>Preferred Humidity: {patient.preferredHumidity}%</p>
+            </div>
+            <div className="details-toggle">Details ▼</div>
+          </div>
+        ))}
       </div>
     </div>
   );

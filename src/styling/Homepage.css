@@ -1,11 +1,7 @@
 /* General Layout */
-body {
-  background-color: #f9f9f9;
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
 .homepage-container {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
   padding: 20px;
 }
 
@@ -32,7 +28,6 @@ body {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  font-weight: bold;
 }
 
 .alert-button:hover {
@@ -40,7 +35,7 @@ body {
   color: white;
 }
 
-/* Page Title */
+/* Title */
 .page-title {
   text-align: center;
   margin: 20px 0;
@@ -52,46 +47,43 @@ body {
 .rooms-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
-  gap: 25px;
+  gap: 20px;
 }
 
 /* Room Card */
 .room-card {
   background: white;
-  border-radius: 15px;
-  padding: 30px; /* Increased padding for larger size */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  width: 100%;
-  max-width: 400px; /* Increased card size */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Room Header */
 .room-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   margin-bottom: 10px;
 }
 
 .room-name {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   display: flex;
   align-items: center;
 }
 
-.dropdown-toggle {
-  margin-left: 8px;
-  font-size: 14px;
-  color: #854cff;
-  cursor: pointer;
+.dropdown-toggle:hover {
+  text-decoration: underline;
 }
 
 .status-indicator {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 .status-indicator.green {
@@ -102,41 +94,47 @@ body {
   background-color: #f44336;
 }
 
-/* Room Temperature */
+/* Room Details */
 .room-temperature {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
-  color: #333;
   margin-bottom: 10px;
 }
 
-/* Expanded Details */
-.room-expanded-details {
-  margin-top: 10px;
+.room-details {
+  font-size: 14px;
   background: #f4f4f4;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  line-height: 1.5;
+  padding: 10px;
+  border-radius: 5px;
+  color: #333;
 }
 
-/* Details Button */
 .details-toggle {
-  margin-top: 10px;
-  font-size: 16px;
+  font-size: 14px;
   color: #854cff;
   cursor: pointer;
-  text-align: left;
+  text-align: left; /* Align to the left */
+  margin-top: 10px;
 }
 
 .details-toggle:hover {
   text-decoration: underline;
 }
 
-/* No Data Message */
-.no-data-message {
-  text-align: center;
-  color: #666;
-  font-size: 16px;
-  margin-top: 20px;
+/* Room Stats */
+.room-stats {
+  display: flex;
+  justify-content: space-between; /* Aligns temperature and humidity to opposite sides */
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.room-temperature {
+  text-align: left;
+}
+
+.room-humidity {
+  text-align: right;
 }

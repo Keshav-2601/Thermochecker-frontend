@@ -1,0 +1,142 @@
+/* General Layout */
+body {
+  background-color: #f9f9f9;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.homepage-container {
+  padding: 20px;
+}
+
+/* Header */
+.homepage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #854cff;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.alert-button {
+  background-color: #fff;
+  color: #854cff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.alert-button:hover {
+  background-color: #6b3cc1;
+  color: white;
+}
+
+/* Page Title */
+.page-title {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Rooms Grid */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+  gap: 25px;
+}
+
+/* Room Card */
+.room-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px; /* Increased padding for larger size */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px; /* Increased card size */
+}
+
+/* Room Header */
+.room-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.room-name {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-toggle {
+  margin-left: 8px;
+  font-size: 14px;
+  color: #854cff;
+  cursor: pointer;
+}
+
+.status-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.status-indicator.green {
+  background-color: #4caf50;
+}
+
+.status-indicator.red {
+  background-color: #f44336;
+}
+
+/* Room Temperature */
+.room-temperature {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Expanded Details */
+.room-expanded-details {
+  margin-top: 10px;
+  background: #f4f4f4;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Details Button */
+.details-toggle {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #854cff;
+  cursor: pointer;
+  text-align: left;
+}
+
+.details-toggle:hover {
+  text-decoration: underline;
+}
+
+/* No Data Message */
+.no-data-message {
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  margin-top: 20px;
+}

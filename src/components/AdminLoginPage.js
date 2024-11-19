@@ -25,6 +25,13 @@ function AdminloginPage() {
             console.log("Status is: ",Result.status);
             if (Result.status === 200) {
               console.log("Admin Login successful");
+              localStorage.setItem('adminToken', Result.data.token);
+              if (Result.data.token) {
+                localStorage.setItem('adminToken', Result.data.token);
+                console.log("Token stored in localStorage");
+            } else {
+                console.error("Token not found in response data");
+            }
               //alert("Admin Logged in");
               Navigate('/AdminHomepage');
           }

@@ -3,53 +3,108 @@ import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import "../styling/Adminpage.css";
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import PubNub, { Channel } from "pubnub";
+
+const pubnub = new PubNub({
+  publishKey: 'pub-c-006ed63e-75db-496c-84cb-3730599207ad',
+  subscribeKey: 'sub-c-3f839898-4bca-4559-93e5-44187b29f3aa',
+  ssl: true,
+  userId: "testUser1" // Set this to a unique ID, such as a username or UUID
+});
 
 
 export default function Patientpage() {
   const [inputfirstname, setfirstname] = useState("");
   const [inputage, setage] = useState("");
   const [input_tempearture, set_temperature] = useState("");
-  const[inputhumidity,set_humidity]=useState("");
-  const[inputpriority,set_Priority]=useState("Normal");
+  const [inputhumidity, set_humidity] = useState("");
+  const [inputpriority, set_Priority] = useState("Normal");
+  const [inputpreferredhumidity, setprehumidity] = useState("");
+  const [inputpreferredTemp, setpreTemp] = useState("");
+  const[inputmintemp,setmintemp]=useState("");
+  const[inputmaxtemp,setmaxtemp]=useState("");
 
-  const handelhumidity=(event)=>{
-    console.log(event.target.value);
-    set_humidity(event.target.value);
+
+const handelmintemp=(event)=>{
+  console.log(event.target.value);
+setmintemp(event.target.value);
+}
+const handelmaxtemp=(event)=>{
+  console.log(event.target.value);
+  setmaxtemp(event.target.value);
+}
+  const handelpretemp = (event) => {
+    setpreTemp(event.target.value);
   }
+  const handelPrehumidity = (event) => {
+    setprehumidity(event.target.value);
+  }
+  useEffect(() => {
+    pubnub.history(
+      {
+        channel: "pi-channel",
+        count: 2,
+      },
+      (status, response) => {
+        if (status.error) {
+          console.error("Error fetching history:", status);
+        } else {
+          console.log("Fetched Messages:", response.messages);
+        }
+        response.messages.forEach((msg) => {
+          console.log(msg.entry.temperature);
+          set_temperature(msg.entry.temperature)
+          console.log(msg.entry.humidity);
+          set_humidity(msg.entry.humidity)
+        })
+      }
+
+    )
+
+  }, [])
+
+
+
   const handelInputname = (event) => {
     console.log("name is:", event.target.value);
     setfirstname(event.target.value); //this is the function so will take () even.target.value in parenthesis.
   };
- async function SubmitInfo() {
+  async function SubmitInfo(event) {
+    event.preventDefault();
     try {
-      const result=await axios.post('http://localhost:3200/admin/patient',{
-        firstname:inputfirstname,
-        age:inputage,
-        temperature:input_tempearture,
-        humidity:inputhumidity,
-        priority:inputpriority
-      })
-      if(result.status===200){
+      const result = await axios.post('http://localhost:3000/admin/patient', {
+        firstname: inputfirstname,
+        age: inputage,
+        temperature: input_tempearture,
+        humidity: inputhumidity,
+        priority: inputpriority,
+        preferedHumidity: inputpreferredhumidity,
+        preferedTemperature: inputpreferredTemp,
+        mintemp:inputmintemp,
+        maxtemp:inputmaxtemp
+      }, {
+        headers: {
+          Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iktlc2hhdnY4NTdAZ21haWwuY29tIiwiaWF0IjoxNzMyMDQ5MDYzLCJleHAiOjE3MzI2NTM4NjN9.ty0bbWOtmM0j3Ihbm2wFVdxZjuGJyJ0ZFBFI-4yJU1I`,
+        }
+      },)
+      if (result.status === 200) {
         console.log("patients'added successfully");
+
       }
       // console.log("Patient's added successfully");
-    } 
+    }
     catch (error) {
-      console.log("Error in getting patient's data check request",error);
+      console.log("Error in getting patient's data check request", error);
     }
   };
 
-  const handelpriority=(event)=>{
-    console.log(event.taget.value);
+  const handelpriority = (event) => {
+    console.log(event.target.value);
     set_Priority(event.target.value);
   }
   const handelage = (a) => {
     console.log("age is", a.target.value);
     setage(a.target.value);
-  };
-  const handel_temp = (tem) => {
-    console.log("temp is", tem.target.value);
-    set_temperature(tem.target.value);
   };
   return (
     <>
@@ -86,7 +141,7 @@ export default function Patientpage() {
               placeholder="temp..."
               required
               defaultValue={input_tempearture}
-              onChange={handel_temp}
+
             />
           </Form.Group>
         </Row>
@@ -98,7 +153,31 @@ export default function Patientpage() {
               placeholder="humidity..."
               required
               defaultValue={inputhumidity}
-              onChange={handelhumidity}
+
+            />
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
+            <Form.Label>preferred_Humidity</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Pre_humidity..."
+              required
+              defaultValue={inputpreferredhumidity}
+              onChange={handelPrehumidity}
+            />
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
+            <Form.Label>preferredTemperature</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="Pre_temp..."
+              required
+              defaultValue={inputpreferredTemp}
+              onChange={handelpretemp}
             />
           </Form.Group>
         </Row>
@@ -111,6 +190,30 @@ export default function Patientpage() {
               required
               defaultValue={inputpriority}
               onChange={handelpriority}
+            />
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
+            <Form.Label>MinTemp</Form.Label>
+            <Form.Control
+              type="numbers"
+              placeholder="Min Temp"
+              required
+              defaultValue={inputmintemp}
+              onChange={handelmintemp}
+            />
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
+            <Form.Label>Maxtemp</Form.Label>
+            <Form.Control
+              type="numbers"
+              placeholder="Max Temp"
+              required
+              defaultValue={inputmaxtemp}
+              onChange={handelmaxtemp}
             />
           </Form.Group>
         </Row>

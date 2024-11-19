@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PubNub from "pubnub";
 import "../styling/Homepage.css";
-
+import axios from "axios";
 const pubnub = new PubNub({
   publishKey: "pub-c-006ed63e-75db-496c-84cb-3730599207ad",
   subscribeKey: "sub-c-3f839898-4bca-4559-93e5-44187b29f3aa",
@@ -24,103 +24,21 @@ function Homepage() {
   const [expandedDetails, setExpandedDetails] = useState(null);
   const [minTemperature, setMinTemperature] = useState({});
   const [maxTemperature, setMaxTemperature] = useState({});
-  const [toggles, setToggles] = useState({}); // Stores toggle states for notifications
+  const [toggles, setToggles] = useState({});
 
   useEffect(() => {
-    // Original API call (commented out)
-    /*
     async function fetchData() {
       try {
         const result = await axios.get("http://localhost:3000/Homepage/");
         setPatientData(result.data.data);
+        console.log(result.data.data);
       } catch (error) {
         console.log("Error fetching data:", error);
       }
     }
     fetchData();
-    */
-
-    // Mock data for testing purposes
-    const mockData = [
-      {
-        _id: "1",
-        firstname: "Steaven",
-        lastname: "Smith",
-        age: 72,
-        temperature: 22.3,
-        roomHumidity: 58,
-        preferredTemperature: 23,
-        preferredHumidity: 60,
-      },
-      {
-        _id: "2",
-        firstname: "Maria",
-        lastname: "Johnson",
-        age: 68,
-        temperature: 20.1,
-        roomHumidity: 55,
-        preferredTemperature: 22,
-        preferredHumidity: 55,
-      },
-      {
-        _id: "3",
-        firstname: "Robert",
-        lastname: "Brown",
-        age: 75,
-        temperature: 23.0,
-        roomHumidity: 65,
-        preferredTemperature: 23,
-        preferredHumidity: 65,
-      },
-      {
-        _id: "4",
-        firstname: "John",
-        lastname: "Doe",
-        age: 79,
-        temperature: 19.5,
-        roomHumidity: 52,
-        preferredTemperature: 21,
-        preferredHumidity: 50,
-      },
-      {
-        _id: "5",
-        firstname: "Elizabeth",
-        lastname: "Taylor",
-        age: 70,
-        temperature: 21.1,
-        roomHumidity: 54,
-        preferredTemperature: 22,
-        preferredHumidity: 55,
-      },
-      {
-        _id: "6",
-        firstname: "Lily",
-        lastname: "Evans",
-        age: 76,
-        temperature: 19.7,
-        roomHumidity: 50,
-        preferredTemperature: 21,
-        preferredHumidity: 50,
-      },
-    ];
-    setPatientData(mockData);
-
-    const initialMin = {};
-    const initialMax = {};
-    const initialToggles = {};
-
-    mockData.forEach((patient) => {
-      initialMin[patient._id] = 19.0;
-      initialMax[patient._id] = 23.0;
-      initialToggles[patient._id] = { notifications: false };
-    });
-
-    setMinTemperature(initialMin);
-    setMaxTemperature(initialMax);
-    setToggles(initialToggles);
-  }, []);
-
-  const toggleDetails = (id) => {
+},[])
+const toggleDetails = (id) => {
     setExpandedDetails(expandedDetails === id ? null : id);
   };
 
@@ -147,8 +65,10 @@ function Homepage() {
     });
   };
 
+
   return (
-    <div className="homepage-container">
+  <>
+  <div className="homepage-container">
       {/* Header */}
       <div className="homepage-header">
         <div className="header-title">Home Temperature Monitor</div>
@@ -175,15 +95,15 @@ function Homepage() {
           </div>
           <div className="room-stats">
             <span className="room-temperature">{patient.temperature}°C</span>
-            <span className="room-humidity">{patient.roomHumidity}%</span>
+            <span className="room-humidity">{patient.humidity}%</span>
           </div>
           <div className="room-details">
             <p>
               Resident Name: {patient.firstname} {patient.lastname}
             </p>
             <p>Resident Age: {patient.age}</p>
-            <p>Preferred Temp: {patient.preferredTemperature}°C</p>
-            <p>Preferred Humidity: {patient.preferredHumidity}%</p>
+            <p>Preferred Temp: {patient.preferedTemperature}°C</p>
+            <p>Preferred Humidity: {patient.preferedHumidity}%</p>
           </div>
           {expandedDetails === patient._id && (
             <div className="dropdown-content">
@@ -192,7 +112,7 @@ function Homepage() {
               </p>
               <div className="temperature-controls">
                 <p>
-                  <strong>Min</strong>
+                  <strong>Min {patient.mintemp}°C</strong>
                   <button
                     className="control-button"
                     onClick={() =>
@@ -214,7 +134,7 @@ function Homepage() {
                   </button>
                 </p>
                 <p>
-                  <strong>Max</strong>
+                  <strong>Max  {patient.maxtemp}°C</strong>
                   <button
                     className="control-button"
                     onClick={() =>
@@ -260,6 +180,7 @@ function Homepage() {
         </div>
       ))}
     </div>
+   </>
   );
 }
 

@@ -9,8 +9,13 @@ export default function Patientpage() {
   const [inputfirstname, setfirstname] = useState("");
   const [inputage, setage] = useState("");
   const [input_tempearture, set_temperature] = useState("");
+  const[inputhumidity,set_humidity]=useState("");
   const[inputpriority,set_Priority]=useState("Normal");
 
+  const handelhumidity=(event)=>{
+    console.log(event.target.value);
+    set_humidity(event.target.value);
+  }
   const handelInputname = (event) => {
     console.log("name is:", event.target.value);
     setfirstname(event.target.value); //this is the function so will take () even.target.value in parenthesis.
@@ -20,13 +25,20 @@ export default function Patientpage() {
       const result=await axios.post('http://localhost:3200/admin/patient',{
         firstname:inputfirstname,
         age:inputage,
-        temperature:input_tempearture
+        temperature:input_tempearture,
+        humidity:inputhumidity,
+        priority:inputpriority
       })
-      console.log("Patient's added successfully");
-    } catch (error) {
+      if(result.status===200){
+        console.log("patients'added successfully");
+      }
+      // console.log("Patient's added successfully");
+    } 
+    catch (error) {
       console.log("Error in getting patient's data check request",error);
     }
   };
+
   const handelpriority=(event)=>{
     console.log(event.taget.value);
     set_Priority(event.target.value);
@@ -59,7 +71,7 @@ export default function Patientpage() {
             <Form.Label>Age</Form.Label>
             <Form.Control
               required
-              type="text"
+              type="number"
               defaultValue={inputage}
               placeholder="age"
               onChange={handelage}
@@ -70,11 +82,23 @@ export default function Patientpage() {
           <Form.Group as={Col} md="6" controlId="validationCustom03">
             <Form.Label>Temperature</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder="temp..."
               required
               defaultValue={input_tempearture}
               onChange={handel_temp}
+            />
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="6" controlId="validationCustom03">
+            <Form.Label>Humidity</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="humidity..."
+              required
+              defaultValue={inputhumidity}
+              onChange={handelhumidity}
             />
           </Form.Group>
         </Row>

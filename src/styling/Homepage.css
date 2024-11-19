@@ -3,6 +3,7 @@
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
   padding: 20px;
+  text-align: center;
 }
 
 /* Header */
@@ -43,27 +44,22 @@
   font-weight: bold;
 }
 
-/* Rooms Grid */
-.rooms-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
-  gap: 20px;
-}
-
 /* Room Card */
 .room-card {
+  display: inline-block;
   background: white;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  margin: 10px;
+  width: calc(25% - 40px); /* 25% for 4 cards per row with margins */
+  vertical-align: top;
 }
 
 /* Room Header */
 .room-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
@@ -75,15 +71,11 @@
   align-items: center;
 }
 
-.dropdown-toggle:hover {
-  text-decoration: underline;
-}
-
 .status-indicator {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 .status-indicator.green {
@@ -94,47 +86,127 @@
   background-color: #f44336;
 }
 
-/* Room Details */
-.room-temperature {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 10px;
+/* Room Stats */
+.room-stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
 }
 
-.room-details {
-  font-size: 14px;
-  background: #f4f4f4;
-  padding: 10px;
-  border-radius: 5px;
+.room-temperature,
+.room-humidity {
+  font-size: 22px;
+  font-weight: bold;
   color: #333;
 }
 
+/* Room Details */
+.room-details {
+  margin-top: 10px;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Details Toggle Button */
 .details-toggle {
+  margin-top: 10px;
   font-size: 14px;
   color: #854cff;
   cursor: pointer;
-  text-align: left; /* Align to the left */
-  margin-top: 10px;
 }
 
 .details-toggle:hover {
   text-decoration: underline;
 }
 
-/* Room Stats */
-.room-stats {
-  display: flex;
-  justify-content: space-between; /* Aligns temperature and humidity to opposite sides */
-  font-size: 22px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.room-temperature {
+/* Expanded Details Box */
+.dropdown-content {
+  margin-top: 10px;
+  background: #f4f4f4; /* Light grey background */
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional for slight depth */
   text-align: left;
 }
 
-.room-humidity {
-  text-align: right;
+/* Controls Container */
+.temperature-controls,
+.toggle-controls {
+  margin-top: 10px;
+}
+
+/* Control Buttons */
+.control-button {
+  margin: 0 5px;
+  padding: 2px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #fff;
+  border: 1px solid #854cff;
+  border-radius: 3px;
+  cursor: pointer;
+  color: #854cff;
+}
+
+.control-button:hover {
+  background-color: #854cff;
+  color: #fff;
+}
+
+/* Control Values */
+.control-value {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Toggle Switches */
+.toggle-switch {
+  display: inline-block;
+  width: 50px;
+  padding: 5px 10px;
+  text-align: center;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+}
+
+.toggle-switch.on {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toggle-switch.off {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Adjust control buttons */
+.control-button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border: 1px solid #854cff;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #854cff;
+}
+
+.control-button:hover {
+  background-color: #854cff;
+  color: white;
+}
+
+.control-value {
+  font-size: 14px;
+  margin: 0 10px;
 }

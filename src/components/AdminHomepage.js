@@ -3,6 +3,7 @@ import PubNub from 'pubnub';
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Adminpage from "./Patientspage.js";
 import axios from 'axios';
+import { Modal, ModalBody } from "react-bootstrap";
 const pubnub = new PubNub({
   publishKey: 'pub-c-006ed63e-75db-496c-84cb-3730599207ad',
   subscribeKey: 'sub-c-3f839898-4bca-4559-93e5-44187b29f3aa',
@@ -34,12 +35,21 @@ function AdminHomepage() {
   const [minTemperature, setMinTemperature] = useState({});
   const [maxTemperature, setMaxTemperature] = useState({});
   const [toggles, setToggles] = useState({});
+  const [selectedpatient, setslectedpatient] = useState(null);
+  const [modalstate, setmodalstate] = useState(false);
+
+
   const navigate = useNavigate();
   function adddatapage() {
     navigate('/admin');
   }
-  function handeledit() {
-    console.log("handeledit cliked");
+  function openmodal(patient) {
+    setslectedpatient(patient);
+    setmodalstate(true);
+  }
+  function closemodal() {
+    setslectedpatient(null);
+    setmodalstate(false);
   }
   useEffect(() => {
     async function fetchData() {
@@ -80,7 +90,49 @@ function AdminHomepage() {
     });
   };
 
+  const handel_modal_firstname = (event) => {
+    setslectedpatient((pre_state) => ({
+      ...pre_state,
+      firstname: event.target.value,
+    }));
+  }
 
+  const handel_modal_age = (event) => {
+    setslectedpatient((pre_state) => ({
+      ...pre_state,
+      age: event.target.value,
+    }));
+  }
+
+  const handel_modal_prehum = (event) => {
+    setslectedpatient((pre_state) => ({
+      ...pre_state,
+      preferedHumidity: event.target.value,
+    }));
+  }
+  const handel_modal_preTemp = (event) => {
+    setslectedpatient((pre_state) => ({
+      ...pre_state,
+      preferedTemperature: event.target.value,
+    }));
+  }
+  async function handel_modal_click(id) {
+    try {
+      const Result=await axios.put('http://localhost:3000/admin/update',{
+        _id: id,
+        firstname:selectedpatient.firstname,
+        age:selectedpatient.age,
+        preferedHumidity:selectedpatient.preferedHumidity,
+        preferedTemperature:selectedpatient.temperature,
+
+      })
+      if(Result.status(204)){
+        console.log("Details successfully Updated!!");
+      }
+    } catch (error) {
+      console.log("can't reach to request pls check request ",error);
+    }
+  }
   return (
     <>
       <div className="homepage-container">
@@ -90,6 +142,7 @@ function AdminHomepage() {
           <button className="alert-button" onClick={sendmessage}>
             Send Temperature Alert
           </button>
+          <button>Add New Room</button>
         </div>
 
         {/* Title */}
@@ -118,7 +171,7 @@ function AdminHomepage() {
               <p>Resident Age: {patient.age}</p>
               <p>Preferred Temp: {patient.preferedTemperature}°C</p>
               <p>Preferred Humidity: {patient.preferedHumidity}%</p>
-              <p><button>Edit</button></p>
+              <p><button onClick={() => openmodal(patient)}>Edit</button></p>
             </div>
             {expandedDetails === patient._id && (
               <div className="dropdown-content">
@@ -194,6 +247,20 @@ function AdminHomepage() {
           </div>
         ))}
       </div>
+
+      <Modal show={modalstate} onHide={closemodal}>
+        <ModalBody>
+          <lable>Name</lable>
+          <input type="text" placeholder="name" value={selectedpatient?.firstname || " "} onChange={handel_modal_firstname}></input>
+          <lable>Age</lable>
+          <input type="number" placeholder="age" value={selectedpatient?.age || " "} onChange={handel_modal_age}></input>
+          <lable>Prefered Humidity</lable>
+          <input type="number" placeholder="pre_Hum" value={selectedpatient?.preferedHumidity || " "} onChange={handel_modal_prehum}></input>
+          <lable>Prefered Temperature</lable>
+          <input type="number" placeholder="pre_temp" value={selectedpatient?.preferedTemperature || " "} onChange={handel_modal_preTemp}></input>
+          <button onClick={()=>handel_modal_click(selectedpatient._id)}>Submit</button>
+        </ModalBody>
+      </Modal>
     </>
   );
 }

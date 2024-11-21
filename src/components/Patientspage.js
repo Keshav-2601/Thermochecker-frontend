@@ -133,7 +133,7 @@ export default function PatientPage() {
               type="number"
               placeholder="Temperature"
               defaultValue={inputTemperature}
-              disabled
+              onChange={(e) => setTemperature(e.target.value)}
             />
           </Form.Group>
         </Row>
@@ -144,7 +144,7 @@ export default function PatientPage() {
               type="number"
               placeholder="Humidity"
               defaultValue={inputHumidity}
-              disabled
+              onChange={(e) => setHumidity(e.target.value)}
             />
           </Form.Group>
         </Row>

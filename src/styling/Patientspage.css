@@ -1,0 +1,110 @@
+/* General Page Layout */
+.patients-header {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  background-color: #854cff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Container */
+.patients-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Form Labels */
+.patients-form label {
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Form Inputs */
+.patients-form .form-control {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Disabled Inputs Styling */
+.patients-form .form-control[disabled] {
+  background-color: #f0f0f0;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* Input Focus */
+.patients-form .form-control:focus {
+  border-color: #854cff;
+  box-shadow: 0 0 8px rgba(133, 76, 255, 0.5);
+}
+
+/* Submit Button */
+.patients-submit-button {
+  background-color: #854cff;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.patients-submit-button:hover {
+  background-color: #6b3cc1;
+  box-shadow: 0 2px 6px rgba(107, 60, 193, 0.5);
+}
+
+/* Input Row Adjustments */
+.patients-form .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Added spacing between rows */
+}
+
+.patients-form .form-group {
+  flex: 1 1 100%; /* Full width by default */
+}
+
+/* Ensure consistent width for all fields */
+.patients-form .form-control {
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .patients-form {
+    padding: 15px;
+  }
+
+  .patients-header {
+    font-size: 24px;
+    padding: 15px;
+  }
+
+  .patients-form label {
+    font-size: 13px;
+  }
+
+  .patients-submit-button {
+    font-size: 16px;
+  }
+}

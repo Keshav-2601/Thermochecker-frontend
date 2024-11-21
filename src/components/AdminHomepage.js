@@ -265,9 +265,13 @@ function AdminHomepage() {
 
       <Modal show={modalstate} onHide={closemodal}>
         <ModalBody className="p-4 bg-light rounded shadow-lg">
-          <h5 className="text-center text-primary mb-4">Edit Patient Details</h5>
+          <h5 className="text-center text-primary mb-4">
+            <i class="bi bi-pencil-square me-2"></i>Edit Patient Details
+          </h5>
           <div className="mb-3">
-            <label className="form-label">Name</label>
+            <label className="form-label">
+              <i class="bi bi-person-fill me-2"></i>Name
+            </label>
             <input
               type="text"
               className="form-control"
@@ -277,7 +281,9 @@ function AdminHomepage() {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Age</label>
+            <label className="form-label">
+              <i class="bi bi-calendar-event-fill me-2"></i>Age
+            </label>
             <input
               type="number"
               className="form-control"
@@ -287,7 +293,9 @@ function AdminHomepage() {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Preferred Humidity</label>
+            <label className="form-label">
+              <i class="bi bi-droplet-half me-2"></i>Preferred Humidity
+            </label>
             <input
               type="number"
               className="form-control"
@@ -297,7 +305,9 @@ function AdminHomepage() {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Preferred Temperature</label>
+            <label className="form-label">
+              <i class="bi bi-thermometer-half me-2"></i>Preferred Temperature
+            </label>
             <input
               type="number"
               className="form-control"
@@ -307,13 +317,15 @@ function AdminHomepage() {
             />
           </div>
           <div className="d-flex justify-content-end">
-            <button className="btn btn-primary" onClick={() => handel_modal_click(selectedpatient._id)}>
-              Submit
+            <button
+              className="btn btn-primary d-flex align-items-center"
+              onClick={() => handel_modal_click(selectedpatient._id)}
+            >
+              <i class="bi bi-check-circle-fill me-2"></i>Submit
             </button>
           </div>
         </ModalBody>
-
-      </Modal>
+    </Modal >
     </>
   );
 }

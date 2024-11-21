@@ -26,6 +26,8 @@ function Homepage() {
   const [maxTemperature, setMaxTemperature] = useState({});
   const [toggles, setToggles] = useState({});
 
+
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -49,21 +51,21 @@ const toggleDetails = (id) => {
     });
   };
 
-  const updateTemperature = (id, type, operation) => {
-    const updateState = type === "min" ? minTemperature : maxTemperature;
-    const setState = type === "min" ? setMinTemperature : setMaxTemperature;
+  // const updateTemperature = (id, type, operation) => {
+  //   const updateState = type === "min" ? minTemperature : maxTemperature;
+  //   const setState = type === "min" ? setMinTemperature : setMaxTemperature;
 
-    setState({
-      ...updateState,
-      [id]: Math.max(
-        0,
-        Math.min(
-          50, // Keep temperature in a valid range
-          updateState[id] + (operation === "increase" ? 1 : -1)
-        )
-      ),
-    });
-  };
+  //   setState({
+  //     ...updateState,
+  //     [id]: Math.max(
+  //       0,
+  //       Math.min(
+  //         50, // Keep temperature in a valid range
+  //         updateState[id] + (operation === "increase" ? 1 : -1)
+  //       )
+  //     ),
+  //   });
+  // };
 
 
   return (
@@ -112,12 +114,12 @@ const toggleDetails = (id) => {
               </p>
               <div className="temperature-controls">
                 <p>
-                  <strong>Min {patient.mintemp}°C</strong>
+                  <strong>Min</strong>
                   <button
                     className="control-button"
-                    onClick={() =>
-                      updateTemperature(patient._id, "min", "decrease")
-                    }
+                    // onClick={() =>
+                    //   updateminTemperature(patient._id, "min", "decrease")
+                    // }
                   >
                     -
                   </button>
@@ -126,20 +128,20 @@ const toggleDetails = (id) => {
                   </span>
                   <button
                     className="control-button"
-                    onClick={() =>
-                      updateTemperature(patient._id, "min", "increase")
-                    }
+                    // onClick={() =>
+                    //   updatemaxTemperature(patient._id, "min", "increase")
+                    // }
                   >
                     +
                   </button>
                 </p>
                 <p>
-                  <strong>Max  {patient.maxtemp}°C</strong>
+                  <strong>Max</strong>
                   <button
                     className="control-button"
-                    onClick={() =>
-                      updateTemperature(patient._id, "max", "decrease")
-                    }
+                    // onClick={() =>
+                    //   updatemaxTemperature(patient._id, "max", "decrease")
+                    // }
                   >
                     -
                   </button>
@@ -148,9 +150,9 @@ const toggleDetails = (id) => {
                   </span>
                   <button
                     className="control-button"
-                    onClick={() =>
-                      updateTemperature(patient._id, "max", "increase")
-                    }
+                    // onClick={() =>
+                    //   updatemaxTemperature(patient._id, "max", "increase")
+                    // }
                   >
                     +
                   </button>

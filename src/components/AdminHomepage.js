@@ -3,7 +3,7 @@ import PubNub from 'pubnub';
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Adminpage from "./Patientspage.js";
 import axios from 'axios';
-import { Modal, ModalBody } from "react-bootstrap";
+import { Alert, Modal, ModalBody } from "react-bootstrap";
 const pubnub = new PubNub({
   publishKey: 'pub-c-006ed63e-75db-496c-84cb-3730599207ad',
   subscribeKey: 'sub-c-3f839898-4bca-4559-93e5-44187b29f3aa',
@@ -127,10 +127,23 @@ function AdminHomepage() {
 
       })
       if(Result.status(204)){
+        Alert("Data updated!!");
         console.log("Details successfully Updated!!");
       }
     } catch (error) {
       console.log("can't reach to request pls check request ",error);
+    }
+  }
+  async function handeldelete(id){
+    try {
+      const Result=await axios.delete("htpp://localhost:3000/admin/delete",{
+        data: { Id: id },
+      });
+      if(Result.status==200){
+        console.log("Succesfully Deleted!!");
+      }
+    } catch (error) {
+      console.log("can not reached the request ",error);
     }
   }
   return (
@@ -172,6 +185,7 @@ function AdminHomepage() {
               <p>Preferred Temp: {patient.preferedTemperature}°C</p>
               <p>Preferred Humidity: {patient.preferedHumidity}%</p>
               <p><button onClick={() => openmodal(patient)}>Edit</button></p>
+              <p><button onClick={()=>handeldelete(patient._id)}>Delete</button></p>
             </div>
             {expandedDetails === patient._id && (
               <div className="dropdown-content">
@@ -250,13 +264,13 @@ function AdminHomepage() {
 
       <Modal show={modalstate} onHide={closemodal}>
         <ModalBody>
-          <lable>Name</lable>
+          <label>Name</label>
           <input type="text" placeholder="name" value={selectedpatient?.firstname || " "} onChange={handel_modal_firstname}></input>
-          <lable>Age</lable>
+          <label>Age</label>
           <input type="number" placeholder="age" value={selectedpatient?.age || " "} onChange={handel_modal_age}></input>
-          <lable>Prefered Humidity</lable>
+          <label>Prefered Humidity</label>
           <input type="number" placeholder="pre_Hum" value={selectedpatient?.preferedHumidity || " "} onChange={handel_modal_prehum}></input>
-          <lable>Prefered Temperature</lable>
+          <label>Prefered Temperature</label>
           <input type="number" placeholder="pre_temp" value={selectedpatient?.preferedTemperature || " "} onChange={handel_modal_preTemp}></input>
           <button onClick={()=>handel_modal_click(selectedpatient._id)}>Submit</button>
         </ModalBody>

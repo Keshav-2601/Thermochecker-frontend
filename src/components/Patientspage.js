@@ -20,16 +20,7 @@ export default function PatientPage() {
   const [inputPriority, setPriority] = useState("Normal");
   const [inputPreferredHumidity, setPreferredHumidity] = useState("");
   const [inputPreferredTemp, setPreferredTemp] = useState("");
-  // const [inputMinTemp, setMinTemp] = useState("");
-  // const [inputMaxTemp, setMaxTemp] = useState("");
-
-  // const handleMinTemp = (event) => {
-  //   setMinTemp(event.target.value);
-  // };
-
-  // const handleMaxTemp = (event) => {
-  //   setMaxTemp(event.target.value);
-  // };
+  
 
   const handlePreferredTemp = (event) => {
     setPreferredTemp(event.target.value);
@@ -73,8 +64,6 @@ export default function PatientPage() {
           priority: inputPriority,
           preferredHumidity: inputPreferredHumidity,
           preferredTemperature: inputPreferredTemp,
-          // minTemp: inputMinTemp,
-          // maxTemp: inputMaxTemp,
         },
         {
           headers: {

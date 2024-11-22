@@ -33,6 +33,7 @@ function AdminHomepage() {
 
   const [PatientData, setPatientData] = useState([]);
   const [expandedDetails, setExpandedDetails] = useState(null);
+  const [refreshData, setRefreshData] = useState(false);
   const [minTemperature, setMinTemperature] = useState({});
   const [maxTemperature, setMaxTemperature] = useState({});
   const [toggles, setToggles] = useState({});
@@ -62,7 +63,7 @@ function AdminHomepage() {
       }
     }
     fetchData();
-  }, []);
+  }, [refreshData]);
 
   const toggleDetails = (id) => {
     setExpandedDetails(expandedDetails === id ? null : id);
@@ -129,11 +130,13 @@ function AdminHomepage() {
       })
       if (Result.status(204)) {
         Alert("Data updated!!");
+        setRefreshData((pre)=>!pre);
         console.log("Details successfully Updated!!");
       }
     } catch (error) {
       console.log("can't reach to request pls check request ", error);
     }
+
   }
   async function handeldelete(id) {
     try {
@@ -156,7 +159,7 @@ function AdminHomepage() {
           <button className="alert-button" onClick={sendmessage}>
             Send Temperature Alert
           </button>
-          <button>Add New Room</button>
+          <button onClick={adddatapage}>Add New Room</button>
         </div>
 
         {/* Title */}

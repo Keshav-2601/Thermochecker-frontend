@@ -24,6 +24,7 @@ function Login() {
         password:inputPassword
       })
       console.log('Login successfully');
+      localStorage.setItem("User ",result.data.token);
        navigate('/Homepage')
     } catch (error) {
       console.log("data not got properly check frontend request",error);

@@ -6,10 +6,10 @@ import axios from 'axios';
 import { Alert, Modal, ModalBody } from "react-bootstrap";
 import '../styling/AdminModal.css';
 const pubnub = new PubNub({
-  publishKey: 'pub-c-006ed63e-75db-496c-84cb-3730599207ad',
-  subscribeKey: 'sub-c-3f839898-4bca-4559-93e5-44187b29f3aa',
-  ssl: true,
-  userId: "testUser1" // Set this to a unique ID, such as a username or UUID
+  publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
+  subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
+  ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', // Convert string to boolean
+  userId: process.env.REACT_APP_PUBNUB_USER_ID, // Assign a unique ID
 });
 
 async function sendmessage() {

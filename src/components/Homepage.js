@@ -3,10 +3,10 @@ import PubNub from "pubnub";
 import "../styling/Homepage.css";
 import axios from "axios";
 const pubnub = new PubNub({
-  publishKey: "pub-c-006ed63e-75db-496c-84cb-3730599207ad",
-  subscribeKey: "sub-c-3f839898-4bca-4559-93e5-44187b29f3aa",
-  ssl: true,
-  userId: "testUser1",
+  publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
+  subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
+  ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', // Convert string to boolean
+  userId: process.env.REACT_APP_PUBNUB_USER_ID, // Assign a unique ID
 });
 
 async function sendmessage() {

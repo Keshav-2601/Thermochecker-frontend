@@ -40,12 +40,12 @@ function Login() {
       <Form className="login-form">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" value={inputEmail} onChange={handelEmail} />
+          <Form.Control type="email" placeholder="Enter email" value={inputEmail} onChange={handelEmail} autoComplete="off"/>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" value={inputPassword} onChange={handelPassword} />
+          <Form.Control type="password" placeholder="Password" value={inputPassword} onChange={handelPassword} autoComplete="off"/>
         </Form.Group>
         <Button className="login-submit-button" type="submit" onClick={handelSubmit}>
           Submit

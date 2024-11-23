@@ -59,6 +59,7 @@ function CreateLogin() {
               defaultValue={inputFirstname}
               className="create-login-input"
               onChange={handelname}
+              autoComplete="off"
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
@@ -71,6 +72,7 @@ function CreateLogin() {
               className="create-login-input"
               onChange={handelPassword}
               value={inputPassword}
+              autoComplete="off"
             />
           </Form.Group>
           <Form.Group as={Col} md="12" controlId="validationCustom03">
@@ -85,6 +87,7 @@ function CreateLogin() {
                 className="create-login-input"
                 onChange={handelEmail}
                 value={inputEmail}
+                autoComplete="off"
               />
               <Form.Control.Feedback type="invalid">
                 Please provide a valid email.
@@ -102,6 +105,7 @@ function CreateLogin() {
               className="create-login-input"
               onChange={handelAddress}
               value={inputAddress}
+              autoComplete="off"
             />
             <Form.Control.Feedback type="invalid">
               Please provide a valid address.

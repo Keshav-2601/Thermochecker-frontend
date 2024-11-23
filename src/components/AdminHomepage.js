@@ -3,8 +3,9 @@ import PubNub from 'pubnub';
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Adminpage from "./Patientspage.js";
 import axios from 'axios';
-import { Alert, Modal, ModalBody } from "react-bootstrap";
+import { Alert, Modal, ModalBody,Button } from "react-bootstrap";
 import '../styling/AdminModal.css';
+
 const pubnub = new PubNub({
   publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
   subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
@@ -33,7 +34,6 @@ function AdminHomepage() {
 
   const [PatientData, setPatientData] = useState([]);
   const [expandedDetails, setExpandedDetails] = useState(null);
-  const [refreshData, setRefreshData] = useState(false);
   const [minTemperature, setMinTemperature] = useState({});
   const [maxTemperature, setMaxTemperature] = useState({});
   const [toggles, setToggles] = useState({});
@@ -63,7 +63,7 @@ function AdminHomepage() {
       }
     }
     fetchData();
-  }, [refreshData]);
+  }, []);
 
   const toggleDetails = (id) => {
     setExpandedDetails(expandedDetails === id ? null : id);
@@ -128,9 +128,13 @@ function AdminHomepage() {
         preferedTemperature: selectedpatient.temperature,
 
       })
-      if (Result.status(204)) {
-        Alert("Data updated!!");
-        setRefreshData((pre)=>!pre);
+      if (Result.status===200) {
+        setmodalstate(false);
+        alert("Data updated!!");
+        const updatedData = await axios.get('http://localhost:3000/Homepage/');//call immdetaily becoz useeffect will take some time even if u put async there call again get request better.
+        setPatientData(updatedData.data.data);
+        console.log("Updated data fetched successfully:", updatedData.data.data);
+        //Navigate('/AdminHomepage');
         console.log("Details successfully Updated!!");
       }
     } catch (error) {
@@ -140,10 +144,13 @@ function AdminHomepage() {
   }
   async function handeldelete(id) {
     try {
-      const Result = await axios.delete("htpp://localhost:3000/admin/delete", {
+      const Result = await axios.delete("http://localhost:3000/admin/delete", {
         data: { Id: id },
       });
       if (Result.status == 200) {
+        const load_data_again=await axios.get('http://localhost:3000/Homepage/');
+        setPatientData(load_data_again.data.data);
+        console.log("Updated data fetched successfully:", load_data_again.data.data);
         console.log("Succesfully Deleted!!");
       }
     } catch (error) {
@@ -159,7 +166,7 @@ function AdminHomepage() {
           <button className="alert-button" onClick={sendmessage}>
             Send Temperature Alert
           </button>
-          <button onClick={adddatapage}>Add New Room</button>
+          <Button variant="info" onClick={adddatapage}>Add New Room</Button>
         </div>
 
         {/* Title */}
@@ -188,8 +195,8 @@ function AdminHomepage() {
               <p>Resident Age: {patient.age}</p>
               <p>Preferred Temp: {patient.preferedTemperature}°C</p>
               <p>Preferred Humidity: {patient.preferedHumidity}%</p>
-              <p><button onClick={() => openmodal(patient)}>Edit</button></p>
-              <p><button onClick={() => handeldelete(patient._id)}>Delete</button></p>
+              <p><Button variant="primary" onClick={() => openmodal(patient)}>Edit</Button></p>
+              <p><Button variant="danger" onClick={() => handeldelete(patient._id)}>Delete</Button></p>
             </div>
             {expandedDetails === patient._id && (
               <div className="dropdown-content">
@@ -281,6 +288,7 @@ function AdminHomepage() {
               placeholder="Enter name"
               value={selectedpatient?.firstname || ""}
               onChange={handel_modal_firstname}
+              autoComplete="off"
             />
           </div>
           <div className="mb-3">
@@ -293,6 +301,7 @@ function AdminHomepage() {
               placeholder="Enter age"
               value={selectedpatient?.age || ""}
               onChange={handel_modal_age}
+              autoComplete="off"
             />
           </div>
           <div className="mb-3">
@@ -305,6 +314,7 @@ function AdminHomepage() {
               placeholder="Enter preferred humidity"
               value={selectedpatient?.preferedHumidity || ""}
               onChange={handel_modal_prehum}
+              autoComplete="off"
             />
           </div>
           <div className="mb-3">
@@ -317,6 +327,7 @@ function AdminHomepage() {
               placeholder="Enter preferred temperature"
               value={selectedpatient?.preferedTemperature || ""}
               onChange={handel_modal_preTemp}
+              autoComplete="off"
             />
           </div>
           <div className="d-flex justify-content-end">

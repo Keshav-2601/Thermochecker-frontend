@@ -2,6 +2,7 @@ import react from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import "../styling/Patientspage.css";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PubNub, { Channel } from "pubnub";
 
@@ -20,7 +21,7 @@ export default function PatientPage() {
   const [inputPriority, setPriority] = useState("Normal");
   const [inputPreferredHumidity, setPreferredHumidity] = useState("");
   const [inputPreferredTemp, setPreferredTemp] = useState("");
-  
+  const navigate=useNavigate();
 
   const handlePreferredTemp = (event) => {
     setPreferredTemp(event.target.value);
@@ -62,20 +63,16 @@ export default function PatientPage() {
           temperature: inputTemperature,
           humidity: inputHumidity,
           priority: inputPriority,
-          preferredHumidity: inputPreferredHumidity,
-          preferredTemperature: inputPreferredTemp,
+          preferedHumidity: inputPreferredHumidity,
+          preferedTemperature: inputPreferredTemp,
         },
-        {
-          headers: {
-            Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Iktlc2hhdnY4NTdAZ21haWwuY29tIiwiaWF0IjoxNzMyMDQ5MDYzLCJleHAiOjE3MzI2NTM4NjN9.ty0bbWOtmM0j3Ihbm2wFVdxZjuGJyJ0ZFBFI-4yJU1I`,
-          },
-        }
       );
       if (result.status === 200) {
+        navigate('/AdminHomepage');
         console.log("Patient added successfully");
       }
     } catch (error) {
-      console.log("Error submitting patient data:", error);
+      console.log("Error submitting patient data request not goinng on try block :", error);
     }
   }
 
@@ -100,6 +97,7 @@ export default function PatientPage() {
               placeholder="First name"
               defaultValue={inputFirstname}
               onChange={handleInputName}
+              autoComplete="off"
             />
           </Form.Group>
         </Row>
@@ -112,6 +110,7 @@ export default function PatientPage() {
               defaultValue={inputAge}
               placeholder="Age"
               onChange={handleAge}
+              autoComplete="off"
             />
           </Form.Group>
         </Row>
@@ -123,6 +122,7 @@ export default function PatientPage() {
               placeholder="Temperature"
               defaultValue={inputTemperature}
               onChange={(e) => setTemperature(e.target.value)}
+              autoComplete="off"
             />
           </Form.Group>
         </Row>
@@ -134,6 +134,7 @@ export default function PatientPage() {
               placeholder="Humidity"
               defaultValue={inputHumidity}
               onChange={(e) => setHumidity(e.target.value)}
+              autoComplete="off"
             />
           </Form.Group>
         </Row>
@@ -145,6 +146,7 @@ export default function PatientPage() {
               placeholder="Preferred Humidity"
               defaultValue={inputPreferredHumidity}
               onChange={handlePreferredHumidity}
+              autoComplete="off"
             />
           </Form.Group>
         </Row>
@@ -156,6 +158,7 @@ export default function PatientPage() {
               placeholder="Preferred Temperature"
               defaultValue={inputPreferredTemp}
               onChange={handlePreferredTemp}
+              autoComplete="off"
             />
           </Form.Group>
         </Row>
@@ -167,6 +170,7 @@ export default function PatientPage() {
               placeholder="Priority"
               defaultValue={inputPriority}
               onChange={handlePriority}
+              autoComplete="off"
             />
           </Form.Group>
         </Row>
@@ -178,6 +182,7 @@ export default function PatientPage() {
           Submit
         </Button>
       </Form>
+      <Button variant="info" onClick={()=>{navigate('/AdminHomepage')}} >Back</Button>
     </>
   );
 }

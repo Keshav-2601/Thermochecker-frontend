@@ -56,10 +56,11 @@
   font-size: 16px;
 }
 
-.admin-submit-button:hover {
-  background-color: #6b3cc1; /* Darker shade on hover */
+ .admin-submit-button:hover {
+  background-color: #6b3cc1;
   cursor: pointer;
-}
+} 
+
 
 /* Back to User Login Link */
 .admin-back-link {

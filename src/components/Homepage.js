@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PubNub from "pubnub";
 import "../styling/Homepage.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const pubnub = new PubNub({
   publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
   subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
@@ -26,7 +27,7 @@ function Homepage() {
   const [maxTemperature, setMaxTemperature] = useState({});
   const [toggles, setToggles] = useState({});
 
-
+  const navigate=useNavigate();
 
   useEffect(() => {
     async function fetchData() {

@@ -15,24 +15,31 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/create" element={<CreateLogin />} />
-          <Route path='/Homepage' element={
-            <Protectedroute requiredRole="User">
-              <Homepage />
-            </Protectedroute>
-            // content
-
-          } />
-          <Route path='/AdminHomepage' element={
-            <Protectedroute requiredRole="Admin">
-              <AdminHomepage />
-            </Protectedroute>
-          } />
-          <Route path="/admin" element={
-            <Protectedroute requiredRole="Admin">
-              <Patientpage />
-            </Protectedroute>
-          } />
-          <Route path='/adminlogin' element={<AdminloginPage />} />
+          <Route
+            path="/Homepage"
+            element={
+              <Protectedroute requiredRole="User">
+                <Homepage />
+              </Protectedroute>
+            }
+          />
+          <Route
+            path="/AdminHomepage"
+            element={
+              <Protectedroute requiredRole="Admin">
+                <AdminHomepage />
+              </Protectedroute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <Protectedroute requiredRole="Admin">
+                <Patientpage />
+              </Protectedroute>
+            }
+          />
+          <Route path="/adminlogin" element={<AdminloginPage />} />
         </Routes>
       </BrowserRouter>
     </>

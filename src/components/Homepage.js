@@ -52,23 +52,6 @@ const toggleDetails = (id) => {
     });
   };
 
-  // const updateTemperature = (id, type, operation) => {
-  //   const updateState = type === "min" ? minTemperature : maxTemperature;
-  //   const setState = type === "min" ? setMinTemperature : setMaxTemperature;
-
-  //   setState({
-  //     ...updateState,
-  //     [id]: Math.max(
-  //       0,
-  //       Math.min(
-  //         50, // Keep temperature in a valid range
-  //         updateState[id] + (operation === "increase" ? 1 : -1)
-  //       )
-  //     ),
-  //   });
-  // };
-
-
   return (
   <>
   <div className="homepage-container">

@@ -56,7 +56,7 @@ export default function PatientPage() {
     event.preventDefault();
     try {
       const result = await axios.post(
-        "http://localhost:3000/admin/patient",
+        "http://localhost:3200/admin/patient",
         {
           firstname: inputFirstname,
           age: inputAge,

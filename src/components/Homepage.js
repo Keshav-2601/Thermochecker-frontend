@@ -32,7 +32,7 @@ function Homepage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.get("http://localhost:3000/Homepage/");
+        const result = await axios.get("http://localhost:3200/Homepage/");
         setPatientData(result.data.data);
         console.log(result.data.data);
       } catch (error) {

@@ -18,7 +18,7 @@ function AdminloginPage() {
    async function handelsubmit(event){
         event.preventDefault();
         try {
-            const Result=await axios.post('http://localhost:3000/admin/adminlogin',{
+            const Result=await axios.post('http://localhost:3200/admin/adminlogin',{
                 email:inputEmail,
                 password:inputPassword
             })

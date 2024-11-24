@@ -56,8 +56,8 @@ function AdminHomepage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.get('http://localhost:3000/Homepage/'); // Correct URL
-        setPatientData(result.data.data); // Access the data correctly
+        const result = await axios.get('http://localhost:3200/Homepage/'); 
+        setPatientData(result.data.data); 
       } catch (error) {
         console.log("Not able to receive data successfully", error);
       }
@@ -120,18 +120,24 @@ function AdminHomepage() {
   }
   async function handel_modal_click(id) {
     try {
-      const Result = await axios.put('http://localhost:3000/admin/update', {
+      const token = localStorage.getItem("adminToken");
+      console.log("token is ",token);
+      const Result = await axios.put('http://localhost:3200/admin/update', {
         _id: id,
         firstname: selectedpatient.firstname,
         age: selectedpatient.age,
         preferedHumidity: selectedpatient.preferedHumidity,
-        preferedTemperature: selectedpatient.temperature,
+        preferedTemperature: selectedpatient.preferedTemperature
 
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
       })
       if (Result.status===200) {
         setmodalstate(false);
         alert("Data updated!!");
-        const updatedData = await axios.get('http://localhost:3000/Homepage/');//call immdetaily becoz useeffect will take some time even if u put async there call again get request better.
+        const updatedData = await axios.get('http://localhost:3200/Homepage/');//call immdetaily becoz useeffect will take some time even if u put async there call again get request better.
         setPatientData(updatedData.data.data);
         console.log("Updated data fetched successfully:", updatedData.data.data);
         //Navigate('/AdminHomepage');
@@ -144,11 +150,16 @@ function AdminHomepage() {
   }
   async function handeldelete(id) {
     try {
-      const Result = await axios.delete("http://localhost:3000/admin/delete", {
+      const token = localStorage.getItem("adminToken");
+      const Result = await axios.delete("http://localhost:3200/admin/delete", {
         data: { Id: id },
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
       });
       if (Result.status == 200) {
-        const load_data_again=await axios.get('http://localhost:3000/Homepage/');
+        const load_data_again=await axios.get('http://localhost:3200/Homepage/');
         setPatientData(load_data_again.data.data);
         console.log("Updated data fetched successfully:", load_data_again.data.data);
         console.log("Succesfully Deleted!!");

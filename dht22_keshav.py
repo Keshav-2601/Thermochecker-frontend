@@ -3,15 +3,18 @@ import board
 import time
 from pubnub.pnconfiguration import PNConfiguration
 from pubnub.pubnub import PubNub
+from dotenv import load_dotenv
+import os
 
-# Initialize the DHT22 sensor
+load_dotenv()
+
 dht_device = adafruit_dht.DHT22(board.D17)
 
-# Configure PubNub with UUID
 pnconfig = PNConfiguration()
-pnconfig.publish_key = "pub-c-006ed63e-75db-496c-84cb-3730599207ad"
-pnconfig.subscribe_key = "sub-c-3f839898-4bca-4559-93e5-44187b29f3aa"
-pnconfig.uuid = "testUser1"
+PUBNUB_PUBLISH_KEY = os.getenv("PUBNUB_PUBLISH_KEY")
+PUBNUB_SUBSCRIBE_KEY = os.getenv("PUBNUB_SUBSCRIBE_KEY")
+PUBNUB_UUID = os.getenv("PUBNUB_UUID")
+
 pubnub = PubNub(pnconfig)
 
 def publish_callback(result, status):
@@ -29,7 +32,7 @@ try:
         print(f"Temperature: {temperature_value:.1f}°C")
         print(f"Humidity: {humidity_value:.1f}%")
 
-        pubnub.publish().channel("pi_channel").message({
+        pubnub.publish().channel("pi-channel").message({
             "temperature": temperature_value,
             "humidity": humidity_value
         }).pn_async(publish_callback) 

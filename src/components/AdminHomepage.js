@@ -3,31 +3,31 @@ import PubNub from 'pubnub';
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Adminpage from "./Patientspage.js";
 import axios from 'axios';
-import { Alert, Modal, ModalBody,Button } from "react-bootstrap";
+import { Alert, Modal, ModalBody, Button } from "react-bootstrap";
 import '../styling/AdminModal.css';
 
 const pubnub = new PubNub({
   publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
   subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
-  ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', // Convert string to boolean
-  userId: process.env.REACT_APP_PUBNUB_USER_ID, // Assign a unique ID
+  ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', 
+  userId: process.env.REACT_APP_PUBNUB_USER_ID, 
 });
 
-async function sendmessage() {
-  const message = {
-    "text": "Temperature is too high"
-  };
-  console.log("Attempting to send message:", message);
-  try {
-    const response = await pubnub.publish({
-      "channel": "pi_channel",
-      "message": message,
-    });
-    console.log("Message successfully sent! Response:", response);
-  } catch (error) {
-    console.log("An error occurred:", error);
-  }
-}
+// async function sendmessage() {
+//   const message = {
+//     "text": "Temperature is too high"
+//   };
+//   console.log("Attempting to send message:", message);
+//   try {
+//     const response = await pubnub.publish({
+//       "channel": "pi_channel",
+//       "message": message,
+//     });
+//     console.log("Message successfully sent! Response:", response);
+//   } catch (error) {
+//     console.log("An error occurred:", error);
+//   }
+// }
 
 
 function AdminHomepage() {
@@ -56,14 +56,15 @@ function AdminHomepage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.get('http://localhost:3200/Homepage/'); 
-        setPatientData(result.data.data); 
+        const result = await axios.get('http://localhost:3200/Homepage/');
+        setPatientData(result.data.data);
       } catch (error) {
         console.log("Not able to receive data successfully", error);
       }
     }
     fetchData();
   }, []);
+  
 
   const toggleDetails = (id) => {
     setExpandedDetails(expandedDetails === id ? null : id);
@@ -121,7 +122,7 @@ function AdminHomepage() {
   async function handel_modal_click(id) {
     try {
       const token = localStorage.getItem("adminToken");
-      console.log("token is ",token);
+      console.log("token is ", token);
       const Result = await axios.put('http://localhost:3200/admin/update', {
         _id: id,
         firstname: selectedpatient.firstname,
@@ -129,12 +130,12 @@ function AdminHomepage() {
         preferedHumidity: selectedpatient.preferedHumidity,
         preferedTemperature: selectedpatient.preferedTemperature
 
-      },{
+      }, {
         headers: {
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       })
-      if (Result.status===200) {
+      if (Result.status === 200) {
         setmodalstate(false);
         alert("Data updated!!");
         const updatedData = await axios.get('http://localhost:3200/Homepage/');//call immdetaily becoz useeffect will take some time even if u put async there call again get request better.
@@ -153,13 +154,13 @@ function AdminHomepage() {
       const token = localStorage.getItem("adminToken");
       const Result = await axios.delete("http://localhost:3200/admin/delete", {
         data: { Id: id },
-      },{
+      }, {
         headers: {
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       });
       if (Result.status == 200) {
-        const load_data_again=await axios.get('http://localhost:3200/Homepage/');
+        const load_data_again = await axios.get('http://localhost:3200/Homepage/');
         setPatientData(load_data_again.data.data);
         console.log("Updated data fetched successfully:", load_data_again.data.data);
         console.log("Succesfully Deleted!!");
@@ -168,15 +169,13 @@ function AdminHomepage() {
       console.log("can not reached the request ", error);
     }
   }
+
   return (
     <>
       <div className="homepage-container">
         {/* Header */}
         <div className="homepage-header">
           <div className="header-title">Home Temperature Monitor</div>
-          <button className="alert-button" onClick={sendmessage}>
-            Send Temperature Alert
-          </button>
           <Button variant="info" onClick={adddatapage}>Add New Room</Button>
         </div>
 
@@ -189,8 +188,9 @@ function AdminHomepage() {
             <div className="room-header">
               <div className="room-name">
                 <span
-                  className={`status-indicator ${patient.temperature > 23 ? "red" : "green"
+                  className={`status-indicator ${patient.temperature <patient.preferedTemperature ? "red" : "green"
                     }`}
+                    
                 ></span>
                 {patient.firstname}'s Bedroom
               </div>
@@ -350,7 +350,7 @@ function AdminHomepage() {
             </button>
           </div>
         </ModalBody>
-    </Modal >
+      </Modal >
     </>
   );
 }

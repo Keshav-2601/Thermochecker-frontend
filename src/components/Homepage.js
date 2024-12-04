@@ -3,6 +3,7 @@ import PubNub from "pubnub";
 import "../styling/Homepage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 const pubnub = new PubNub({
   publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
   subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
@@ -29,6 +30,20 @@ function Homepage() {
 
   const navigate=useNavigate();
 
+  async function sendPrefereedTemperaature(pre_temp) {
+    const message={
+      preferedTemperature:pre_temp
+    }
+    try {
+      const response=await PubNub.publish({
+        "channel":"pi-channel",
+        "message":message
+      })
+    } catch (error) {
+      console.log("Temp not send properly",error);
+    }
+    
+  } 
   useEffect(() => {
     async function fetchData() {
       try {
@@ -91,6 +106,7 @@ const toggleDetails = (id) => {
             <p>Preferred Temp: {patient.preferedTemperature}°C</p>
             <p>Preferred Humidity: {patient.preferedHumidity}%</p>
           </div>
+          <Button onClick={()=>sendPrefereedTemperaature(patient.preferedTemperature)} type="Info">Heater Turn on</Button>
           {expandedDetails === patient._id && (
             <div className="dropdown-content">
               <p>

@@ -18,7 +18,7 @@ function AdminloginPage() {
    async function handelsubmit(event){
         event.preventDefault();
         try {
-            const Result=await axios.post(`${process.env.REACT_APP_API_URL}/adminlogin`,{
+            const Result=await axios.post(`${process.env.REACT_APP_API_URL}/admin/adminlogin`,{
                 email:inputEmail,
                 password:inputPassword
             })

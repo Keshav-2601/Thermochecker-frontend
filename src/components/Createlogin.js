@@ -29,7 +29,7 @@ function CreateLogin() {
   async function handelSubmit(event){
     event.preventDefault();
     try {
-      const data = await axios.post(`${process.env.REACT_API_URL}/user/create`, {
+      const data = await axios.post(`${process.env.REACT_APP_API_URL}/user/create`, {
         firstname:inputFirstname,
         password:inputPassword,
         email:inputEmail,

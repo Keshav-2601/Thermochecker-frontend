@@ -48,7 +48,7 @@ function Homepage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.get(`${process.env.REACT_API_URL}/Homepage/`);
+        const result = await axios.get(`${process.env.REACT_APP_API_URL}/Homepage/`);
         setPatientData(result.data.data);
         console.log("Result from MongoDB is : ",result.data.data);
       } catch (error) {

@@ -56,7 +56,7 @@ function AdminHomepage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.get('http://localhost:3200/Homepage/');
+        const result = await axios.get(`${process.env.REACT_API_URL}/Homepage/`);
         setPatientData(result.data.data);
       } catch (error) {
         console.log("Not able to receive data successfully", error);
@@ -123,7 +123,7 @@ function AdminHomepage() {
     try {
       const token = localStorage.getItem("adminToken");
       console.log("token is ", token);
-      const Result = await axios.put('http://localhost:3200/admin/update', {
+      const Result = await axios.put(`${process.env.REACT_API_URL}/admin/update`, {
         _id: id,
         firstname: selectedpatient.firstname,
         age: selectedpatient.age,
@@ -138,7 +138,7 @@ function AdminHomepage() {
       if (Result.status === 200) {
         setmodalstate(false);
         alert("Data updated!!");
-        const updatedData = await axios.get('http://localhost:3200/Homepage/');//call immdetaily becoz useeffect will take some time even if u put async there call again get request better.
+        const updatedData = await axios.get(`${process.env.REACT_API_URL}/Homepage/`);//call immdetaily becoz useeffect will take some time even if u put async there call again get request better.
         setPatientData(updatedData.data.data);
         console.log("Updated data fetched successfully:", updatedData.data.data);
         //Navigate('/AdminHomepage');
@@ -152,7 +152,7 @@ function AdminHomepage() {
   async function handeldelete(id) {
     try {
       const token = localStorage.getItem("adminToken");
-      const Result = await axios.delete("http://localhost:3200/admin/delete", {
+      const Result = await axios.delete(`${process.env.REACT_API_URL}admin/delete`, {
         data: { Id: id },
       }, {
         headers: {
@@ -160,7 +160,7 @@ function AdminHomepage() {
         },
       });
       if (Result.status == 200) {
-        const load_data_again = await axios.get('http://localhost:3200/Homepage/');
+        const load_data_again = await axios.get(`${process.env.REACT_API_URL}/Homepage/`);
         setPatientData(load_data_again.data.data);
         console.log("Updated data fetched successfully:", load_data_again.data.data);
         console.log("Succesfully Deleted!!");

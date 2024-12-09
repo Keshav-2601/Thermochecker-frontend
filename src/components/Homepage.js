@@ -35,10 +35,11 @@ function Homepage() {
       preferedTemperature:pre_temp
     }
     try {
-      const response=await PubNub.publish({
+      const response=await pubnub.publish({
         "channel":"pi-channel",
         "message":message
       })
+      console.log("Temperature send succefully",response);
     } catch (error) {
       console.log("Temp not send properly",error);
     }
@@ -47,9 +48,9 @@ function Homepage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const result = await axios.get("http://localhost:3200/Homepage/");
+        const result = await axios.get(`${process.env.REACT_API_URL}/Homepage/`);
         setPatientData(result.data.data);
-        console.log(result.data.data);
+        console.log("Result from MongoDB is : ",result.data.data);
       } catch (error) {
         console.log("Error fetching data:", error);
       }

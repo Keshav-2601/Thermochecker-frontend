@@ -3,6 +3,10 @@ import { Button, Form } from "react-bootstrap"; // Removed unused imports
 import { Link ,useNavigate} from "react-router-dom";
 import "../styling/Loginpage.css";
 import axios from 'axios';
+import dotenv from 'dotenv'
+
+
+
 function Login() {
   const[inputEmail,setEmail]=useState("");
   const[inputPassword,setPassword]=useState("");
@@ -19,7 +23,7 @@ function Login() {
   async function handelSubmit(event){
     event.preventDefault();
     try {
-      const result= await axios.post('http://localhost:3200/user/login',{
+      const result= await axios.post(`${process.env.REACT_APP_API_URL}/user/login`,{
         email:inputEmail,
         password:inputPassword
       })

@@ -19,8 +19,6 @@ async function sendmessage(temp) {
   const message = {
     "temp": temp
   };
-  pubnub_secure.CryptoModule_instance(message);
-
   console.log("Attempting to send message:", message);
   try {
     const response = await pubnub.publish({

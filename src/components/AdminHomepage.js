@@ -11,23 +11,27 @@ const pubnub = new PubNub({
   subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
   ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', 
   userId: process.env.REACT_APP_PUBNUB_USER_ID, 
+  cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({cipherKey: 'pubnubenigma'})//this will automatically encrypt data here.
 });
 
-// async function sendmessage() {
-//   const message = {
-//     "text": "Temperature is too high"
-//   };
-//   console.log("Attempting to send message:", message);
-//   try {
-//     const response = await pubnub.publish({
-//       "channel": "pi_channel",
-//       "message": message,
-//     });
-//     console.log("Message successfully sent! Response:", response);
-//   } catch (error) {
-//     console.log("An error occurred:", error);
-//   }
-// }
+ 
+async function sendmessage(temp) {
+  const message = {
+    "temp": temp
+  };
+  pubnub_secure.CryptoModule_instance(message);
+
+  console.log("Attempting to send message:", message);
+  try {
+    const response = await pubnub.publish({
+      "channel": "pi_channel",
+      "message": message,
+    });
+    console.log("Message successfully sent! Response:", response);
+  } catch (error) {
+    console.log("An error occurred:", error);
+  }
+}
 
 
 function AdminHomepage() {
@@ -188,7 +192,7 @@ function AdminHomepage() {
             <div className="room-header">
               <div className="room-name">
                 <span
-                  className={`status-indicator ${patient.temperature <patient.preferedTemperature ? "red" : "green"
+                  className={`status-indicator ${patient.temperature <patient.preferedTemperature ?(()=>sendmessage(patient.temperature),"red") : "green"
                     }`}
                     
                 ></span>

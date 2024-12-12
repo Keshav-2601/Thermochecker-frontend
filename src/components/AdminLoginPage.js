@@ -32,12 +32,27 @@ function AdminloginPage() {
             } else {
                 console.error("Token not found in response data");
             }
-              //alert("Admin Logged in");
               Navigate('/AdminHomepage');
           }
         } catch (error) {
             console.log("pls check the request inputs ",error);
         }
+
+        async function pubnub() {
+          try {
+            const result=await axios.get(`${process.env.REACT_APP_API_URL}/admin/pubnub`);
+            if(result.status===200){
+              localStorage.setItem('Pubnubtoken',result.data.Pubnub_Token);
+              console.log("Pubnub token is Local Storage successfully!!");
+            }
+            else{
+              console.log("pubnub Token not found");
+            }
+          } catch (error) {
+            console.log("Request not send to backend for Pubnub Token some error",error);
+          }
+        }
+        pubnub();
     }
 
   return (

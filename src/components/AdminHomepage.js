@@ -6,15 +6,11 @@ import axios from 'axios';
 import { Alert, Modal, ModalBody, Button } from "react-bootstrap";
 import '../styling/AdminModal.css';
 
-const pubnub = new PubNub({
-  publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
-  subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
-  ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', 
-  userId: process.env.REACT_APP_PUBNUB_USER_ID, 
-  cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({cipherKey: 'pubnubenigma'})//this will automatically encrypt data here.
-});
+// TLS communication for PubNub clients is enabled by default. 
+// If you need to disable it for any reason, it can be done during the PubNub object initialization.
+//  Each SDK has its own API, so refer to our SDK docs for the one that you are using.
 
- 
+
 async function sendmessage(temp) {
   const message = {
     "temp": temp
@@ -66,7 +62,7 @@ function AdminHomepage() {
     }
     fetchData();
   }, []);
-  
+
 
   const toggleDetails = (id) => {
     setExpandedDetails(expandedDetails === id ? null : id);
@@ -190,9 +186,9 @@ function AdminHomepage() {
             <div className="room-header">
               <div className="room-name">
                 <span
-                  className={`status-indicator ${patient.temperature <patient.preferedTemperature ?(sendmessage(patient.temperature),"red") : "green"
+                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ? (sendmessage(patient.temperature), "red") : "green"
                     }`}
-                    
+
                 ></span>
                 {patient.firstname}'s Bedroom
               </div>

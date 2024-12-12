@@ -11,21 +11,21 @@ import '../styling/AdminModal.css';
 //  Each SDK has its own API, so refer to our SDK docs for the one that you are using.
 
 
-async function sendmessage(temp) {
-  const message = {
-    "temp": temp
-  };
-  console.log("Attempting to send message:", message);
-  try {
-    const response = await pubnub.publish({
-      "channel": "pi_channel",
-      "message": message,
-    });
-    console.log("Message successfully sent! Response:", response);
-  } catch (error) {
-    console.log("An error occurred:", error);
-  }
-}
+// async function sendmessage(temp) {
+//   const message = {
+//     "temp": temp
+//   };
+//   console.log("Attempting to send message:", message);
+//   try {
+//     const response = await pubnub.publish({
+//       "channel": "pi_channel",
+//       "message": message,
+//     });
+//     console.log("Message successfully sent! Response:", response);
+//   } catch (error) {
+//     console.log("An error occurred:", error);
+//   }
+// }
 
 
 function AdminHomepage() {

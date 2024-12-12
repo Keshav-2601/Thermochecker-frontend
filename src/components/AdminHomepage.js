@@ -186,7 +186,7 @@ function AdminHomepage() {
             <div className="room-header">
               <div className="room-name">
                 <span
-                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ? (sendmessage(patient.temperature), "red") : "green"
+                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ? "red" : "green"
                     }`}
 
                 ></span>

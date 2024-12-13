@@ -15,6 +15,20 @@ function AdminloginPage() {
         console.log(event.target.value);
         setPassword(event.target.value);
     }
+    async function pubnub() {
+      try {
+        const result=await axios.get(`${process.env.REACT_APP_API_URL}/admin/pubnub`);
+        if(result.status===200){
+          localStorage.setItem('Pubnubtoken',result.data.Pubnub_Token);
+          console.log("Pubnub token is Local Storage successfully!!");
+        }
+        else{
+          console.log("pubnub Token not found");
+        }
+      } catch (error) {
+        console.log("Request not send to backend for Pubnub Token some error",error);
+      }
+    }
    async function handelsubmit(event){
         event.preventDefault();
         try {
@@ -36,21 +50,6 @@ function AdminloginPage() {
           }
         } catch (error) {
             console.log("pls check the request inputs ",error);
-        }
-
-        async function pubnub() {
-          try {
-            const result=await axios.get(`${process.env.REACT_APP_API_URL}/admin/pubnub`);
-            if(result.status===200){
-              localStorage.setItem('Pubnubtoken',result.data.Pubnub_Token);
-              console.log("Pubnub token is Local Storage successfully!!");
-            }
-            else{
-              console.log("pubnub Token not found");
-            }
-          } catch (error) {
-            console.log("Request not send to backend for Pubnub Token some error",error);
-          }
         }
         pubnub();
     }

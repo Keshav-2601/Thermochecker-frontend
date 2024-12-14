@@ -150,7 +150,7 @@ function AdminHomepage() {
   async function handeldelete(id) {
     try {
       const token = localStorage.getItem("adminToken");
-      const Result = await axios.delete(`${process.env.REACT_APP_API_URL}admin/delete`, {
+      const Result = await axios.delete(`${process.env.REACT_APP_API_URL}/admin/delete`, {
         data: { Id: id },
       }, {
         headers: {

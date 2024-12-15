@@ -227,7 +227,7 @@ function AdminHomepage() {
               <p>Preferred Humidity: {patient.preferedHumidity}%</p>
               <p><Button variant="primary" onClick={() => openmodal(patient)}>Edit</Button></p>
               <p><Button variant="danger" onClick={() => handeldelete(patient._id)}>Delete</Button></p>
-              <p><Button variant="info" onClick={()=>sendmessage(patient.temperature)}></Button></p>
+              <p><Button variant="info" onClick={()=>sendmessage(patient.temperature)}>Info</Button></p>
             </div>
             {expandedDetails === patient._id && (
               <div className="dropdown-content">

@@ -4,22 +4,8 @@ import "../styling/Homepage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-const pubnub = new PubNub({
-  publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
-  subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
-  ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', // Convert string to boolean
-  userId: process.env.REACT_APP_PUBNUB_USER_ID, // Assign a unique ID
-});
 
-async function sendmessage() {
-  const message = { text: "Temperature is too high" };
-  try {
-    await pubnub.publish({ channel: "pi_channel", message });
-    console.log("Message sent successfully!");
-  } catch (error) {
-    console.log("Error sending message:", error);
-  }
-}
+
 
 function Homepage() {
   const [PatientData, setPatientData] = useState([]);

@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap"; // Removed unused imports
 import { Link ,useNavigate} from "react-router-dom";
 import "../styling/Loginpage.css";
 import axios from 'axios';
+import PubNub from "pubnub";
 
 
 
@@ -20,6 +21,19 @@ function Login() {
     setPassword(event.target.value);
   }
 
+  async function PubNub() {
+    try {
+      const result= await axios.get(`${process.env.REACT_APP_API_URL}/user/pubnub`);
+      if(result.status===200){
+        localStorage.setItem('Pubnub_user_Key',result.data.Pubnub_user_token);
+      }
+      else{
+        console.log("pubub token not found");
+      }
+    } catch (error) {
+      console.log("not able to send request frontend error",error)
+    }
+  }
   async function handelSubmit(event){
     event.preventDefault();
     try {
@@ -37,6 +51,7 @@ function Login() {
     } catch (error) {
       console.log("data not got properly check frontend request",error);
     }
+    PubNub();
   }
   return (
     <div className="login-page-container">

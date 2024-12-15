@@ -11,7 +11,7 @@ import '../styling/AdminModal.css';
 //  Each SDK has its own API, so refer to our SDK docs for the one that you are using.
 
 async function sendmessage(temp) {
-  const pubtoken = localStorage.getItem("Pubnub_Token");
+  const pubtoken = localStorage.getItem("Pubnubtoken");
 
   const pubnub = new PubNub({
     publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,

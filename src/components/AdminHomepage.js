@@ -10,22 +10,6 @@ import '../styling/AdminModal.css';
 // If you need to disable it for any reason, it can be done during the PubNub object initialization.
 //  Each SDK has its own API, so refer to our SDK docs for the one that you are using.
 
-function PatientComponent({ patient }) {
-  useEffect(() => {
-    if (patient.temperature < patient.preferedTemperature) {
-      sendmessage(patient.temperature);
-    }
-  }, [patient.temperature, patient.preferedTemperature]); // Dependencies to watch
-
-  return (
-    <span
-      className={`status-indicator ${
-        patient.temperature < patient.preferedTemperature ? "red" : "green"
-      }`}
-    ></span>
-  );
-}
-
 async function sendmessage(temp) {
   const pubtoken = localStorage.getItem("Pubnub_Token");
 
@@ -216,7 +200,7 @@ function AdminHomepage() {
             <div className="room-header">
               <div className="room-name">
                 <span
-                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ?  "red": "green"
+                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ? (sendmessage(patient.temperature) ,"red"): "green"
                     }`}
 
                 ></span>

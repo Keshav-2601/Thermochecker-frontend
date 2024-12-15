@@ -27,7 +27,7 @@ async function sendmessage(temp) {
     ssl: process.env.REACT_APP_PUBNUB_SSL === "true",
     userId: process.env.REACT_APP_PUBNUB_USER_ID, 
     authKey: pubtoken,
-    cryptoModule: aesCbcCryptoModule({ cipherKey: 'pubnubenigma' })
+    cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({ cipherKey: 'pubnubenigma' })
   });
 
   const message = {

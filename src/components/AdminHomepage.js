@@ -4,7 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import Adminpage from "./Patientspage.js";
 import axios from 'axios';
 import { Alert, Modal, ModalBody, Button } from "react-bootstrap";
-import { aesCbcCryptoModule } from 'pubnub-crypto';
+
 import '../styling/AdminModal.css';
 
 // TLS communication for PubNub clients is enabled by default. 

@@ -23,6 +23,7 @@ function Homepage() {
       publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
       subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
       ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', 
+      secretKey:process.env.REACT_APP_SECRET_KEY,
       userId: process.env.REACT_APP_PUBNUB_USER_ID, 
       authKey: pubusertoken,
       cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({ cipherKey: 'pubnubenigma' })

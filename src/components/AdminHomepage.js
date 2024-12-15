@@ -17,6 +17,7 @@ async function sendmessage(temp) {
   const pubnub = new PubNub({
     publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
     subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
+    secretKey:process.env.REACT_APP_SECRET_KEY,
     ssl: process.env.REACT_APP_PUBNUB_SSL === "true",
     userId: process.env.REACT_APP_PUBNUB_USER_ID, 
     authKey: pubtoken,

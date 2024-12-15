@@ -11,13 +11,14 @@ import '../styling/AdminModal.css';
 //  Each SDK has its own API, so refer to our SDK docs for the one that you are using.
 
 async function sendmessage(temp) {
+
   const pubtoken = localStorage.getItem("Pubnubtoken");
 
   const pubnub = new PubNub({
     publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
     subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
     ssl: process.env.REACT_APP_PUBNUB_SSL === "true",
-    userId: process.env.REACT_APP_PUBNUB_USER_ID,
+    userId: process.env.REACT_APP_PUBNUB_USER_ID, 
     authKey: pubtoken,
   });
 
@@ -28,12 +29,12 @@ async function sendmessage(temp) {
 
   try {
     const response = await pubnub.publish({
-      channel: "pi_channel",
+      channel: "pi_channel", 
       message: message,
     });
     console.log("Successfully published message!!", response);
-  } catch (status) {
-    console.log("Some error, not able to publish", status);
+  } catch (error) {
+    console.error("Some error, not able to publish:", error);
   }
 }
 

@@ -16,7 +16,7 @@ function Homepage() {
 
   const navigate=useNavigate();
 
-  async function sendPrefereedTemperaature() {
+  async function sendheaterInfo() {
     const pubusertoken=localStorage.getItem("Pubnub_user_token");
 
     const pubnub=new PubNub({
@@ -103,7 +103,7 @@ const toggleDetails = (id) => {
             <p>Preferred Temp: {patient.preferedTemperature}°C</p>
             <p>Preferred Humidity: {patient.preferedHumidity}%</p>
           </div>
-          <Button onClick={()=>sendPrefereedTemperaature()} type="Info">Heater Info</Button>
+          <Button onClick={()=>sendheaterInfo()} type="Info">Heater Info</Button>
           {expandedDetails === patient._id && (
             <div className="dropdown-content">
               <p>

@@ -25,7 +25,7 @@ function Login() {
     try {
       const result= await axios.get(`${process.env.REACT_APP_API_URL}/user/pubnub`);
       if(result.status===200){
-        sessionStorage.setItem('Pubnub_user_Key',result.data.Pubnub_user_token);
+        localStorage.setItem('Pubnub_user_Key',result.data.Pubnub_user_token);
       }
       else{
         console.log("pubub token not found");
@@ -44,7 +44,7 @@ function Login() {
       if(result.status===200){
         console.log(result.data);
         console.log('Login successfully');
-        sessionStorage.setItem("User",result.data.token);
+        localStorage.setItem("User",result.data.token);
       }
      
        navigate('/Homepage')

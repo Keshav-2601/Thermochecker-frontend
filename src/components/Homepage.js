@@ -17,7 +17,7 @@ function Homepage() {
   const navigate=useNavigate();
 
   async function sendheaterInfo() {
-    const pubusertoken=sessionStorage.getItem("Pubnub_user_token");
+    const pubusertoken=localStorage.getItem("Pubnub_user_token");
 
     const pubnub=new PubNub({
       publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,

@@ -207,7 +207,7 @@ function AdminHomepage() {
             <div className="room-header">
               <div className="room-name">
                 <span
-                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ? (sendmessage(patient.temperature) ,"red"): "green"
+                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ? "red": "green"
                     }`}
 
                 ></span>
@@ -227,6 +227,7 @@ function AdminHomepage() {
               <p>Preferred Humidity: {patient.preferedHumidity}%</p>
               <p><Button variant="primary" onClick={() => openmodal(patient)}>Edit</Button></p>
               <p><Button variant="danger" onClick={() => handeldelete(patient._id)}>Delete</Button></p>
+              <p><Button variant="info" onClick={()=>sendmessage(patient.temperature)}></Button></p>
             </div>
             {expandedDetails === patient._id && (
               <div className="dropdown-content">
@@ -235,6 +236,7 @@ function AdminHomepage() {
                 </p>
                 <div className="temperature-controls">
                   <p>
+                  
                     <strong>Min {patient.mintemp}°C</strong>
                     <button
                       className="control-button"

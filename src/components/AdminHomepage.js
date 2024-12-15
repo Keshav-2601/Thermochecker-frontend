@@ -13,7 +13,7 @@ import '../styling/AdminModal.css';
 async function sendmessage(temp) {
 
   const pubtoken = localStorage.getItem("Pubnubtoken");
-
+  console.log("pubtoken admin: ",pubtoken);
   const pubnub = new PubNub({
     publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
     subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,

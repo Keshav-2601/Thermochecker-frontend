@@ -12,7 +12,7 @@ import '../styling/AdminModal.css';
 
 async function sendmessage(temp) {
 
-  const pubtoken = localStorage.getItem("Pubnubtoken");
+  const pubtoken = sessionStorage.getItem("Pubnubtoken");
   if (!pubtoken) {
     console.error("Pubnubtoken not found in localStorage!");
     return;

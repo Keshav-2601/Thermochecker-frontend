@@ -19,7 +19,7 @@ function AdminloginPage() {
       try {
         const result=await axios.get(`${process.env.REACT_APP_API_URL}/admin/pubnub`);
         if(result.status===200){
-          localStorage.setItem('Pubnubtoken',result.data.Pubnub_Token);
+          sessionStorage.setItem('Pubnubtoken',result.data.Pubnub_Token);
           console.log("Pubnub token is Local Storage successfully!!");
         }
         else{
@@ -39,9 +39,9 @@ function AdminloginPage() {
             console.log("Status is: ",Result.status);
             if (Result.status === 200) {
               console.log("Admin Login successful");
-              localStorage.setItem('adminToken', Result.data.token);
+              sessionStorage.setItem('adminToken', Result.data.token);
               if (Result.data.token) {
-                localStorage.setItem('adminToken', Result.data.token);
+                sessionStorage.setItem('adminToken', Result.data.token);
                 console.log("Token stored in localStorage");
             } else {
                 console.error("Token not found in response data");

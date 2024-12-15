@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import Adminpage from "./Patientspage.js";
 import axios from 'axios';
 import { Alert, Modal, ModalBody, Button } from "react-bootstrap";
+import { aesCbcCryptoModule } from 'pubnub-crypto';
 import '../styling/AdminModal.css';
 
 // TLS communication for PubNub clients is enabled by default. 
@@ -26,7 +27,7 @@ async function sendmessage(temp) {
     ssl: process.env.REACT_APP_PUBNUB_SSL === "true",
     userId: process.env.REACT_APP_PUBNUB_USER_ID, 
     authKey: pubtoken,
-    cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({ cipherKey: 'pubnubenigma' })
+    cryptoModule: aesCbcCryptoModule({ cipherKey: 'pubnubenigma' })
   });
 
   const message = {

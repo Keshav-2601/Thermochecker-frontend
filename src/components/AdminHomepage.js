@@ -10,36 +10,49 @@ import '../styling/AdminModal.css';
 // If you need to disable it for any reason, it can be done during the PubNub object initialization.
 //  Each SDK has its own API, so refer to our SDK docs for the one that you are using.
 
-function sendmessage(temp) {
+function PatientComponent({ patient }) {
+  useEffect(() => {
+    if (patient.temperature < patient.preferedTemperature) {
+      sendmessage(patient.temperature);
+    }
+  }, [patient.temperature, patient.preferedTemperature]); // Dependencies to watch
+
+  return (
+    <span
+      className={`status-indicator ${
+        patient.temperature < patient.preferedTemperature ? "red" : "green"
+      }`}
+    ></span>
+  );
+}
+
+async function sendmessage(temp) {
   const pubtoken = localStorage.getItem("Pubnub_Token");
 
   const pubnub = new PubNub({
     publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
     subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
-    ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', 
-    userId: process.env.REACT_APP_PUBNUB_USER_ID, 
-    authKey: pubtoken
+    ssl: process.env.REACT_APP_PUBNUB_SSL === "true",
+    userId: process.env.REACT_APP_PUBNUB_USER_ID,
+    authKey: pubtoken,
   });
 
   const message = {
     temperature: temp,
-    text: "Turn on the heater"
-  }
-  pubnub.publish({
-    channel: "pi_channel",
-    message: message
+    text: "Turn on the heater",
+  };
 
-  },
-    function (status, response) {
-      if (status.error) {
-        console.log("some error not able to publish",status)
-      }
-      else {
-        console.log("Succesffuly publish msg!!",response);
-      }
-    }
-  );
+  try {
+    const response = await pubnub.publish({
+      channel: "pi_channel",
+      message: message,
+    });
+    console.log("Successfully published message!!", response);
+  } catch (status) {
+    console.log("Some error, not able to publish", status);
+  }
 }
+
 
 
 
@@ -203,7 +216,7 @@ function AdminHomepage() {
             <div className="room-header">
               <div className="room-name">
                 <span
-                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ? (sendmessage(patient.temperature), "red") : "green"
+                  className={`status-indicator ${patient.temperature < patient.preferedTemperature ?  "red": "green"
                     }`}
 
                 ></span>

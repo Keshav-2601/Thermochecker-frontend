@@ -4,7 +4,7 @@ import "../styling/Homepage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-
+import PubNub from "pubnub";
 
 
 function Homepage() {
@@ -16,20 +16,30 @@ function Homepage() {
 
   const navigate=useNavigate();
 
-  async function sendPrefereedTemperaature(pre_temp) {
-    const message={
-      preferedTemperature:pre_temp
-    }
-    try {
-      const response=await pubnub.publish({
-        "channel":"pi-channel",
-        "message":message
-      })
-      console.log("Temperature send succefully",response);
-    } catch (error) {
-      console.log("Temp not send properly",error);
-    }
-    
+  async function sendPrefereedTemperaature() {
+    const pubusertoken=localStorage.getItem("Pubnub_user_token");
+
+    const pubnub=new PubNub({
+      publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
+      subscribeKey: process.env.REACT_APP_PUBNUB_SUBSCRIBE_KEY,
+      ssl: process.env.REACT_APP_PUBNUB_SSL === 'true', 
+      userId: process.env.REACT_APP_PUBNUB_USER_ID, 
+      authKey: pubusertoken,
+      cryptoModule: PubNub.CryptoModule.aesCbcCryptoModule({ cipherKey: 'pubnubenigma' })
+    })
+    pubnub.subscribe({
+      channels:["pi_channel"],
+    })
+    pubnub.addListener({
+      message: function(event) {
+        console.log("Message received:", event.message);
+      },
+      status: function(statusEvent) {
+        if (statusEvent.category === "PNConnectedCategory") {
+          console.log("Successfully subscribed to pi_channel");
+        }
+      }
+    });
   } 
   useEffect(() => {
     async function fetchData() {
@@ -93,7 +103,7 @@ const toggleDetails = (id) => {
             <p>Preferred Temp: {patient.preferedTemperature}°C</p>
             <p>Preferred Humidity: {patient.preferedHumidity}%</p>
           </div>
-          <Button onClick={()=>sendPrefereedTemperaature(patient.preferedTemperature)} type="Info">Heater Turn on</Button>
+          <Button onClick={()=>sendPrefereedTemperaature()} type="Info">Heater Info</Button>
           {expandedDetails === patient._id && (
             <div className="dropdown-content">
               <p>

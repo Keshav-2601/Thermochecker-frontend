@@ -70,9 +70,9 @@ const toggleDetails = (id) => {
       {/* Header */}
       <div className="homepage-header">
         <div className="header-title">Home Temperature Monitor</div>
-        <button className="alert-button" onClick={sendmessage}>
+        {/* <button className="alert-button" onClick={sendmessage}>
           Send Temperature Alert
-        </button>
+        </button> */}
       </div>
 
       {/* Title */}

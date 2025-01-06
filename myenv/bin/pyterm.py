@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/home/keshav/Projects/myenv/bin/python3.11
+=======
+#!/home/Alex/ThermalChecker/myenv/bin/python3
+>>>>>>> a1e73ac (Add updated Python code for ThermalChecker)
 
 """Simple Python serial terminal
 """

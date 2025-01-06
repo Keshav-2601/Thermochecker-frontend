@@ -33,7 +33,11 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
+<<<<<<< HEAD
 set -gx VIRTUAL_ENV "/home/keshav/Projects/myenv"
+=======
+set -gx VIRTUAL_ENV "/home/Alex/ThermalChecker/myenv"
+>>>>>>> a1e73ac (Add updated Python code for ThermalChecker)
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

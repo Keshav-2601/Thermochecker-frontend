@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/home/keshav/Projects/myenv/bin/python3.11
+=======
+#!/home/Alex/ThermalChecker/myenv/bin/python3
+>>>>>>> a1e73ac (Add updated Python code for ThermalChecker)
 
 # Copyright (c) 2019-2024, Emmanuel Blot <emmanuel.blot@free.fr>
 # All rights reserved.

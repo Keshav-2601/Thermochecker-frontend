@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/home/keshav/Projects/myenv/bin/python3.11
+=======
+#!/home/Alex/ThermalChecker/myenv/bin/python3
+>>>>>>> a1e73ac (Add updated Python code for ThermalChecker)
 
 """Simple FTDI EEPROM configurator.
 """
@@ -186,6 +190,11 @@ def main():
         sys_exit(1)
     except KeyboardInterrupt:
         sys_exit(2)
+<<<<<<< HEAD
+=======
+    finally:
+        eeprom.close()
+>>>>>>> a1e73ac (Add updated Python code for ThermalChecker)
 
 
 if __name__ == '__main__':

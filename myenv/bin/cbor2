@@ -1,4 +1,4 @@
-#!/home/keshav/Projects/myenv/bin/python3.11
+#!/home/Alex/ThermalChecker/myenv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

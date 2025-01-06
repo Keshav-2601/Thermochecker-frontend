@@ -38,11 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-<<<<<<< HEAD
-VIRTUAL_ENV="/home/keshav/Projects/myenv"
-=======
 VIRTUAL_ENV="/home/Alex/ThermalChecker/myenv"
->>>>>>> a1e73ac (Add updated Python code for ThermalChecker)
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

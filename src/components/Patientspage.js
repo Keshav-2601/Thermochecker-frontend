@@ -35,18 +35,29 @@ export default function PatientPage() {
     pubnub.history(
       {
         channel: "thermochecker",
-        count: 2,
+        count: 2, // Fetch the latest 2 messages
       },
       (status, response) => {
         if (!status.error) {
-          response.messages.forEach((msg) => {
-            setTemperature(msg.entry.temperature);
-            setHumidity(msg.entry.humidity);
-          });
+          if (response.messages && response.messages.length > 0) {
+            response.messages.forEach((msg) => {
+              if (msg.entry && msg.entry.temperature && msg.entry.humidity) {
+                setTemperature(msg.entry.temperature);
+                setHumidity(msg.entry.humidity);
+              } else {
+                console.error("Invalid message format:", msg);
+              }
+            });
+          } else {
+            console.warn("No messages found in history.");
+          }
+        } else {
+          console.error("Error fetching PubNub history:", status);
         }
       }
     );
-  }, []);
+  }, [pubnub]); // Include pubnub as a dependency if you're using the PubNub instance from context or props
+  
 
   const handleInputName = (event) => {
     setFirstname(event.target.value);

@@ -52,9 +52,6 @@ export default function PatientPage() {
     });
 
     // Cleanup: Unsubscribe from the channel on component unmount
-    return () => {
-      pubnub.unsubscribe({ channels: ["thermochecker"] });
-    };
   }, [pubnub]);
 
 

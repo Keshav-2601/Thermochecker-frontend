@@ -31,33 +31,32 @@ export default function PatientPage() {
     setPreferredHumidity(event.target.value);
   };
 
-  useEffect(() => {
-    pubnub.history(
-      {
-        channel: "thermochecker",
-        count: 2, // Fetch the latest 2 messages
-      },
-      (status, response) => {
-        if (!status.error) {
-          if (response.messages && response.messages.length > 0) {
-            response.messages.forEach((msg) => {
-              if (msg.entry && msg.entry.temperature && msg.entry.humidity) {
-                setTemperature(msg.entry.temperature);
-                setHumidity(msg.entry.humidity);
-              } else {
-                console.error("Invalid message format:", msg);
-              }
-            });
-          } else {
-            console.warn("No messages found in history.");
-          }
-        } else {
-          console.error("Error fetching PubNub history:", status);
-        }
-      }
-    );
-  }, [pubnub]); // Include pubnub as a dependency if you're using the PubNub instance from context or props
   
+  useEffect(() => {
+    const handleMessage = (event) => {
+      // Extract temperature and humidity from the received message
+      if (event.message && event.message.temperature && event.message.humidity) {
+        setTemperature(event.message.temperature);
+        setHumidity(event.message.humidity);
+      } else {
+        console.error("Invalid message format:", event);
+      }
+    };
+
+    // Subscribe to the "thermochecker" channel
+    pubnub.subscribe({ channels: ["thermochecker"] });
+
+    // Add a listener for messages
+    pubnub.addListener({
+      message: handleMessage,
+    });
+
+    // Cleanup: Unsubscribe from the channel on component unmount
+    return () => {
+      pubnub.unsubscribe({ channels: ["thermochecker"] });
+    };
+  }, [pubnub]);
+
 
   const handleInputName = (event) => {
     setFirstname(event.target.value);

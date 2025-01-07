@@ -34,7 +34,7 @@ export default function PatientPage() {
   useEffect(() => {
     pubnub.history(
       {
-        channel: "pi-channel",
+        channel: "thermochecker",
         count: 2,
       },
       (status, response) => {
